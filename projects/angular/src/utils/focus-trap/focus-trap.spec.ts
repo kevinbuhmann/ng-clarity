@@ -164,7 +164,7 @@ describe('Focus Trap Utilities: ', () => {
         expect(noFocusElement.focus).not.toHaveBeenCalled();
       });
 
-      it('redirects focus() if it tries to focus a rebounder', async () => {
+      it('redirects focus() if it tries to focus a rebounder', () => {
         const topReboundElement = focusTrapElement.topReboundElement;
         const bottomReboundElement = focusTrapElement.bottomReboundElement;
         spyOn(topReboundElement, 'focus');
@@ -177,16 +177,16 @@ describe('Focus Trap Utilities: ', () => {
     });
 
     describe('elementIsOutsideFocusTrapElement()', () => {
-      it('returns true if element is outside focus trap element', async () => {
+      it('returns true if element is outside focus trap element', () => {
         expect(elementIsOutsideFocusTrapElement(noFocusElement, focusTrapElement)).toBeTruthy();
       });
 
-      it('returns true if focused element is top rebound element', async () => {
+      it('returns true if focused element is top rebound element', () => {
         focusTrapElement.topReboundElement = focusedElement;
         expect(elementIsOutsideFocusTrapElement(focusedElement, focusTrapElement)).toBeTruthy();
       });
 
-      it('returns true if focused element is bottom rebound element', async () => {
+      it('returns true if focused element is bottom rebound element', () => {
         focusTrapElement.bottomReboundElement = focusedElement;
         expect(elementIsOutsideFocusTrapElement(focusedElement, focusTrapElement)).toBeTruthy();
       });
@@ -206,7 +206,7 @@ describe('FocusTrap Class: ', () => {
     let fixture: ComponentFixture<TestFocusTrapComponent>;
     let wrapperComponent: ComponentRef<TestFocusTrapComponent>;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CommonModule],
         declarations: [TestFocusTrapComponent, FocusTrapComponent],
@@ -273,7 +273,7 @@ describe('FocusTrap Class: ', () => {
     let wrapperComponent: ComponentRef<TestFocusTrapComponent>;
     let previousFocusedElement: HTMLElement;
 
-    beforeEach(async () => {
+    beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [CommonModule],
         declarations: [TestFocusTrapComponent, FocusTrapComponent],

@@ -52,7 +52,7 @@ export default function (): void {
       let fixture: ComponentFixture<SimpleTest>;
       let element: HTMLElement;
 
-      beforeEach(async function () {
+      beforeEach(function () {
         TestBed.configureTestingModule({
           declarations: [ClrControlError, SimpleTest],
           providers: [ControlIdService, ContainerIdService],

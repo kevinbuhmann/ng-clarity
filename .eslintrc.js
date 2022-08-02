@@ -54,6 +54,7 @@ module.exports = {
         ],
         'jasmine/no-focused-tests': 'error',
         'no-irregular-whitespace': ['error', { skipTemplates: true }],
+        'require-await': 'error',
         'sort-imports': [
           'error',
           {

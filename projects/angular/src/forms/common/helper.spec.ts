@@ -24,7 +24,7 @@ export default function (): void {
       let fixture: ComponentFixture<SimpleTest>;
       let element: HTMLElement;
 
-      beforeEach(async function () {
+      beforeEach(function () {
         TestBed.configureTestingModule({
           declarations: [ClrControlHelper, SimpleTest],
           providers: [ControlIdService],
@@ -52,7 +52,7 @@ export default function (): void {
       let fixture: ComponentFixture<SimpleTest>;
       let element: HTMLElement;
 
-      beforeEach(async function () {
+      beforeEach(function () {
         TestBed.configureTestingModule({
           declarations: [ClrControlHelper, SimpleTest],
           providers: [ControlIdService, ContainerIdService],
