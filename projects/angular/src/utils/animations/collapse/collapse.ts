@@ -9,7 +9,6 @@ import { animate, AnimationMetadata, state, style, transition } from '@angular/a
 import { defaultAnimationTiming } from '../constants';
 
 export function collapse(): AnimationMetadata[] {
-  'use strict';
   return [
     state('true', style({ height: 0, 'overflow-y': 'hidden' })),
     transition('true => false', [animate(defaultAnimationTiming, style({ height: '*', 'overflow-y': 'hidden' }))]),

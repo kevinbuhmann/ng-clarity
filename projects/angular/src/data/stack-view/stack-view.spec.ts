@@ -24,7 +24,6 @@ import { ClrStackViewModule } from './stack-view.module';
 class TestComponent {}
 
 export default function (): void {
-  'use strict';
   describe('StackView', () => {
     let fixture: ComponentFixture<any>;
     let compiled: any;
