@@ -4,7 +4,7 @@
  * The full license information can be found in LICENSE in the root directory of this project.
  */
 
-import { Component, Directive } from '@angular/core';
+import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { ClrIfDragged } from './if-dragged';
@@ -26,7 +26,7 @@ export default function (): void {
     describe('With ClrDragEventListener', function () {
       beforeEach(function () {
         TestBed.configureTestingModule({
-          declarations: [IfDraggedTest, ClrIfDragged, MockVCRProvider],
+          declarations: [IfDraggedTest, ClrIfDragged],
           providers: [MOCK_DRAG_EVENT_LISTENER_PROVIDER],
         });
 
@@ -58,12 +58,8 @@ export default function (): void {
   });
 }
 
-@Directive({
-  selector: '[mockVCRProvider]',
-})
-class MockVCRProvider {}
 @Component({
-  template: `<div mockVCRProvider class="parent-vcr"><span class="if-dragged" *clrIfDragged>Test</span></div>`,
+  template: `<div class="parent-vcr"><span class="if-dragged" *clrIfDragged>Test</span></div>`,
 })
 class IfDraggedTest {}
 
