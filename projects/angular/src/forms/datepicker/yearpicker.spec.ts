@@ -5,7 +5,6 @@
  */
 
 import { Component } from '@angular/core';
-import { async } from '@angular/core/testing';
 
 import { TestContext } from '../../data/datagrid/helpers.spec';
 import { ClrCommonStringsService } from '../../utils/i18n/common-strings.service';
@@ -135,7 +134,7 @@ export default function () {
         expect(nextDecadeBtn.attributes['aria-label'].value).toEqual('Next decade');
       });
 
-      it('updates the tab indices correctly', async(() => {
+      it('updates the tab indices correctly', () => {
         const buttons: HTMLButtonElement[] = context.clarityElement.querySelectorAll('.year');
 
         expect(buttons[3].tabIndex).toBe(0);
@@ -163,7 +162,7 @@ export default function () {
 
         expect(buttons[8].tabIndex).toBe(-1);
         expect(buttons[3].tabIndex).toBe(0);
-      }));
+      });
     });
 
     describe('Typescript API', () => {

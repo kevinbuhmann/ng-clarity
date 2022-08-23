@@ -5,7 +5,7 @@
  */
 
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { async, fakeAsync, tick } from '@angular/core/testing';
+import { fakeAsync, tick } from '@angular/core/testing';
 import { Subject } from 'rxjs';
 
 import { KeyCodes } from '../../utils/enums/key-codes.enum';
@@ -765,14 +765,14 @@ export default function (): void {
         expect(context.clarityElement.querySelector('.datagrid-column.datagrid-expandable-caret')).toBeNull();
       });
 
-      it('can expand rows on initialization', async(function () {
+      it('can expand rows on initialization', function () {
         const context = this.create(ClrDatagrid, ExpandedOnInitTest);
         const caretIcon = context.clarityElement.querySelector('.datagrid-expandable-caret-icon');
         expect(caretIcon).not.toBeNull();
         expect(caretIcon.getAttribute('direction')).toBe('down');
         const rowDetail = context.clarityElement.querySelector('.datagrid-row-detail');
         expect(rowDetail).not.toBeNull();
-      }));
+      });
 
       it('hides cells in dg-row-detail when columns are hidden and rows are replaced', function () {
         const context = this.create(ClrDatagrid, ExpandedReplacedCellsTest);

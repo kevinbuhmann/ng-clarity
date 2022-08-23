@@ -5,7 +5,6 @@
  */
 
 import { Component } from '@angular/core';
-import { async } from '@angular/core/testing';
 
 import { TestContext } from '../../data/datagrid/helpers.spec';
 import { DOWN_ARROW, LEFT_ARROW, RIGHT_ARROW, UP_ARROW } from '../../utils/key-codes/key-codes';
@@ -88,7 +87,7 @@ export default function () {
         }
       });
 
-      it('updates the tab indices correctly', async(() => {
+      it('updates the tab indices correctly', () => {
         const buttons: HTMLButtonElement[] = context.clarityElement.querySelectorAll('button');
         expect(buttons[1].tabIndex).toBe(0);
 
@@ -115,7 +114,7 @@ export default function () {
 
         expect(buttons[7].tabIndex).toBe(-1);
         expect(buttons[1].tabIndex).toBe(0);
-      }));
+      });
     });
 
     describe('Typescript API', () => {

@@ -5,7 +5,6 @@
  */
 
 import { Component } from '@angular/core';
-import { async } from '@angular/core/testing';
 
 import { ClrCommonStringsService } from '../../utils/i18n/common-strings.service';
 import { ClrDatagridDetail } from './datagrid-detail';
@@ -53,7 +52,7 @@ export default function (): void {
         expect(context.clarityElement.innerHTML).not.toContain(content);
       });
 
-      it('hides content with the esc key', async(() => {
+      it('hides content with the esc key', () => {
         spyOn(detailService, 'close');
         detailService.open({});
         context.detectChanges();
@@ -62,7 +61,7 @@ export default function (): void {
         document.dispatchEvent(event);
         context.detectChanges();
         expect(detailService.close).toHaveBeenCalled();
-      }));
+      });
 
       it('conditionally enables focus trap when opened', () => {
         expect(context.clarityElement.innerHTML).not.toContain('clrfocustrap');
