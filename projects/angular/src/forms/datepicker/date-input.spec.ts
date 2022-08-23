@@ -568,30 +568,28 @@ export default function () {
         dateFormControlService = dateContainerDebugElement.injector.get(DateFormControlService);
       });
 
-      it('marks the form as touched when the markAsTouched event is received', done => {
-        fixture.whenStable().then(() => {
-          const form = fixture.componentInstance.templateForm.form;
-          expect(form.get('date').touched).toBe(false);
+      it('marks the form as touched when the markAsTouched event is received', async () => {
+        await fixture.whenStable();
 
-          dateFormControlService.markAsTouched();
+        const form = fixture.componentInstance.templateForm.form;
+        expect(form.get('date').touched).toBe(false);
 
-          fixture.detectChanges();
-          expect(form.get('date').touched).toBe(true);
-          done();
-        });
+        dateFormControlService.markAsTouched();
+
+        fixture.detectChanges();
+        expect(form.get('date').touched).toBe(true);
       });
 
-      it('marks the form as dirty when the markAsDirty event is received', done => {
-        fixture.whenStable().then(() => {
-          const form = fixture.componentInstance.templateForm.form;
-          expect(form.get('date').dirty).toBe(false);
+      it('marks the form as dirty when the markAsDirty event is received', async () => {
+        await fixture.whenStable();
 
-          dateFormControlService.markAsDirty();
+        const form = fixture.componentInstance.templateForm.form;
+        expect(form.get('date').dirty).toBe(false);
 
-          fixture.detectChanges();
-          expect(form.get('date').dirty).toBe(true);
-          done();
-        });
+        dateFormControlService.markAsDirty();
+
+        fixture.detectChanges();
+        expect(form.get('date').dirty).toBe(true);
       });
 
       it('outputs the date when the user manually changes the date', () => {
