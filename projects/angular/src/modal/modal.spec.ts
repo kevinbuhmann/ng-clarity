@@ -65,13 +65,11 @@ describe('Modal', () => {
   let compiled: any;
   const commonStrings = new ClrCommonStringsService();
 
-  beforeEach(async () => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ClrModalModule, NoopAnimationsModule, ClrFocusTrapModule],
       declarations: [TestComponent, TestDefaultsComponent],
     });
-
-    await TestBed.compileComponents();
 
     fixture = TestBed.createComponent(TestComponent);
     fixture.detectChanges();

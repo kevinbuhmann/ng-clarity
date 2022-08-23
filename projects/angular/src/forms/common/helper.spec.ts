@@ -28,7 +28,7 @@ export default function (): void {
         TestBed.configureTestingModule({
           declarations: [ClrControlHelper, SimpleTest],
           providers: [ControlIdService],
-        }).compileComponents();
+        });
         fixture = TestBed.createComponent(SimpleTest);
         fixture.detectChanges();
         element = fixture.debugElement.query(By.directive(ClrControlHelper)).nativeElement;
@@ -56,7 +56,7 @@ export default function (): void {
         TestBed.configureTestingModule({
           declarations: [ClrControlHelper, SimpleTest],
           providers: [ControlIdService, ContainerIdService],
-        }).compileComponents();
+        });
         fixture = TestBed.createComponent(SimpleTest);
         fixture.detectChanges();
         element = fixture.debugElement.query(By.directive(ClrControlHelper)).nativeElement;

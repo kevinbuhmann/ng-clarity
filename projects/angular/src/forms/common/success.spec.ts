@@ -56,7 +56,7 @@ export default function (): void {
         TestBed.configureTestingModule({
           declarations: [ClrControlSuccess, SimpleTest],
           providers: [ControlIdService, ContainerIdService],
-        }).compileComponents();
+        });
         fixture = TestBed.createComponent(SimpleTest);
         fixture.detectChanges();
         element = fixture.debugElement.query(By.directive(ClrControlSuccess)).nativeElement;
