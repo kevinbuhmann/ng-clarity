@@ -30,112 +30,108 @@ class SimpleHost {
   }
 }
 
-interface TestContext {
-  fixture: ComponentFixture<SimpleHost>;
-  testComponent: SimpleHost;
-  el: HTMLElement;
-  focusHandler: ComboboxFocusHandler<any>;
-  selectionService: OptionSelectionService<any>;
-  toggleService: ClrPopoverToggleService;
-}
-
 export default function (): void {
   describe('Basic focusHandler', function () {
-    beforeEach(function (this: TestContext) {
+    let fixture: ComponentFixture<SimpleHost>;
+    let testComponent: SimpleHost;
+    let focusHandler: ComboboxFocusHandler<any>;
+    let selectionService: OptionSelectionService<any>;
+    let toggleService: ClrPopoverToggleService;
+
+    beforeEach(function () {
       TestBed.configureTestingModule({
         declarations: [SimpleHost],
         providers: [ClrPopoverToggleService, OptionSelectionService, COMBOBOX_FOCUS_HANDLER_PROVIDER],
       });
-      this.fixture = TestBed.createComponent(SimpleHost);
-      this.testComponent = this.fixture.componentInstance;
-      this.el = this.fixture.debugElement.nativeElement;
-      this.focusHandler = this.fixture.debugElement.injector.get(ComboboxFocusHandler);
-      this.toggleService = this.fixture.debugElement.injector.get(ClrPopoverToggleService);
-      this.selectionService = this.fixture.debugElement.injector.get(OptionSelectionService);
+      fixture = TestBed.createComponent(SimpleHost);
+      testComponent = fixture.componentInstance;
+      focusHandler = fixture.debugElement.injector.get(ComboboxFocusHandler);
+      toggleService = fixture.debugElement.injector.get(ClrPopoverToggleService);
+      selectionService = fixture.debugElement.injector.get(OptionSelectionService);
 
-      this.fixture.detectChanges();
+      fixture.detectChanges();
 
-      this.focusHandler.textInput = this.testComponent.textInput.nativeElement;
-      this.focusHandler.trigger = this.testComponent.trigger.nativeElement;
-      this.focusHandler.listbox = this.testComponent.listbox.nativeElement;
+      focusHandler.textInput = testComponent.textInput.nativeElement;
+      focusHandler.trigger = testComponent.trigger.nativeElement;
+      focusHandler.listbox = testComponent.listbox.nativeElement;
 
-      this.focusHandler.addOptionValues([
+      focusHandler.addOptionValues([
         new OptionData('1', 'one'),
         new OptionData('2', 'two'),
         new OptionData('3', 'three'),
       ]);
     });
 
-    it('declares itself as a ComboboxFocusHandler provider', function (this: TestContext) {
-      expect(this.focusHandler).toBeTruthy();
+    it('declares itself as a ComboboxFocusHandler provider', function () {
+      expect(focusHandler).toBeTruthy();
     });
 
-    it('has empty pseudoFocus on initialization', function (this: TestContext) {
-      expect(this.focusHandler.pseudoFocus).toBeTruthy();
-      expect(this.focusHandler.pseudoFocus.isEmpty()).toBeTrue();
-      expect(this.toggleService.open).toBeFalse();
+    it('has empty pseudoFocus on initialization', function () {
+      expect(focusHandler.pseudoFocus).toBeTruthy();
+      expect(focusHandler.pseudoFocus.isEmpty()).toBeTrue();
+      expect(toggleService.open).toBeFalse();
     });
 
-    it('can open a listbox and set focus', function (this: TestContext) {
+    it('can open a listbox and set focus', function () {
       const event = new KeyboardEvent('keydown', { key: KeyCodes.ArrowDown });
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.toggleService.open).toBeTrue();
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(toggleService.open).toBeTrue();
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
     });
 
-    it('moves focus with keys', function (this: TestContext) {
+    it('moves focus with keys', function () {
       const event = new KeyboardEvent('keydown', { key: KeyCodes.ArrowDown });
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('2', 'two'));
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('2', 'two'));
       const upEvent = new KeyboardEvent('keydown', { key: KeyCodes.ArrowUp });
-      this.testComponent.textInput.nativeElement.dispatchEvent(upEvent);
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
+      testComponent.textInput.nativeElement.dispatchEvent(upEvent);
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
     });
 
-    it('closes popover on textInput blur', function (this: TestContext) {
-      this.toggleService.open = true;
+    it('closes popover on textInput blur', function () {
+      toggleService.open = true;
       const event = new FocusEvent('blur');
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.toggleService.open).toBeFalse();
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(toggleService.open).toBeFalse();
     });
 
-    it('closes popover on trigger blur', function (this: TestContext) {
-      this.toggleService.open = true;
+    it('closes popover on trigger blur', function () {
+      toggleService.open = true;
       const event = new FocusEvent('blur');
-      this.testComponent.trigger.nativeElement.dispatchEvent(event);
-      expect(this.toggleService.open).toBeFalse();
+      testComponent.trigger.nativeElement.dispatchEvent(event);
+      expect(toggleService.open).toBeFalse();
     });
 
-    it('closes popover on listbox blur', function (this: TestContext) {
-      this.toggleService.open = true;
+    it('closes popover on listbox blur', function () {
+      toggleService.open = true;
       const event = new FocusEvent('blur');
-      this.testComponent.listbox.nativeElement.dispatchEvent(event);
-      expect(this.toggleService.open).toBeFalse();
+      testComponent.listbox.nativeElement.dispatchEvent(event);
+      expect(toggleService.open).toBeFalse();
     });
 
-    it('can set focus on textInput', function (this: TestContext) {
-      spyOn(this.testComponent.textInput.nativeElement, 'focus');
-      this.focusHandler.focusInput();
-      expect(this.testComponent.textInput.nativeElement.focus).toHaveBeenCalled();
+    it('can set focus on textInput', function () {
+      spyOn(testComponent.textInput.nativeElement, 'focus');
+      focusHandler.focusInput();
+      expect(testComponent.textInput.nativeElement.focus).toHaveBeenCalled();
     });
 
-    it('can set focus on first active item', function (this: TestContext) {
-      this.selectionService.selectionModel = new SingleSelectComboboxModel();
+    it('can set focus on first active item', function () {
+      selectionService.selectionModel = new SingleSelectComboboxModel();
       const item = 'two';
-      this.selectionService.select(item);
-      this.focusHandler.focusFirstActive();
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('2', 'two'));
+      selectionService.select(item);
+      focusHandler.focusFirstActive();
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('2', 'two'));
     });
 
-    it('can set focus on the first item if no item is active', function (this: TestContext) {
-      this.selectionService.selectionModel = new SingleSelectComboboxModel();
-      this.focusHandler.focusFirstActive();
-      expect(this.focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
+    it('can set focus on the first item if no item is active', function () {
+      selectionService.selectionModel = new SingleSelectComboboxModel();
+      focusHandler.focusFirstActive();
+      expect(focusHandler.pseudoFocus.model).toEqual(new OptionData('1', 'one'));
     });
 
-    it('Option data can be compared', function (this: TestContext) {
+    it('Option data can be compared', function () {
       const item = new OptionData('1', 'one');
       const sameItem = new OptionData('1', 'one');
       const otherItem = new OptionData('2', 'two');
@@ -144,19 +140,19 @@ export default function (): void {
       expect(item.equals(otherItem)).toBeFalse();
     });
 
-    it('does submit on Enter when dialog is closed', function (this: TestContext) {
-      spyOn(this.testComponent, 'onSubmit');
+    it('does submit on Enter when dialog is closed', function () {
+      spyOn(testComponent, 'onSubmit');
       const event = new KeyboardEvent('keydown', { key: KeyCodes.Enter });
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.testComponent.onSubmit).not.toHaveBeenCalled();
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(testComponent.onSubmit).not.toHaveBeenCalled();
     });
 
-    it('does not submit on Enter when dialog is open', function (this: TestContext) {
-      spyOn(this.testComponent, 'onSubmit');
-      this.toggleService.open = true;
+    it('does not submit on Enter when dialog is open', function () {
+      spyOn(testComponent, 'onSubmit');
+      toggleService.open = true;
       const event = new KeyboardEvent('keydown', { key: KeyCodes.Enter });
-      this.testComponent.textInput.nativeElement.dispatchEvent(event);
-      expect(this.testComponent.onSubmit).not.toHaveBeenCalled();
+      testComponent.textInput.nativeElement.dispatchEvent(event);
+      expect(testComponent.onSubmit).not.toHaveBeenCalled();
     });
   });
 }

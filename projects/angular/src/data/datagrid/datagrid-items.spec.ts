@@ -5,7 +5,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClrDatagridItems } from './datagrid-items';
 import { ClrDatagridModule } from './datagrid.module';
@@ -49,6 +49,11 @@ class TrackByIndexTest {
 export default function (): void {
   describe('ClrDatagridItems directive', function () {
     describe('correctly initializes', () => {
+      let fixture: ComponentFixture<FullTest>;
+      let testComponent: FullTest;
+      let clarityDirective: ClrDatagridItems<number>;
+      let itemsProvider: Items;
+
       beforeEach(function () {
         /*
          * Since the ClrDatagridItems element is a template that isn't rendered in the DOM,
@@ -59,44 +64,49 @@ export default function (): void {
           declarations: [FullTest],
           providers: [Items, FiltersProvider, Sort, Page, StateDebouncer],
         });
-        this.fixture = TestBed.createComponent(FullTest);
-        this.fixture.detectChanges();
-        this.testComponent = this.fixture.componentInstance;
-        this.clarityDirective = this.fixture.componentInstance.datagridItems;
-        this.itemsProvider = TestBed.inject(Items);
+        fixture = TestBed.createComponent(FullTest);
+        fixture.detectChanges();
+        testComponent = fixture.componentInstance;
+        clarityDirective = fixture.componentInstance.datagridItems;
+        itemsProvider = TestBed.inject(Items);
       });
 
       it('makes the Items provider smart', function () {
-        expect(this.itemsProvider.smart).toBe(true);
+        expect(itemsProvider.smart).toBe(true);
       });
 
       it('receives an input for the array of items', function () {
-        expect(this.itemsProvider.displayed).toEqual([1, 2, 3, 4, 5]);
+        expect(itemsProvider.displayed).toEqual([1, 2, 3, 4, 5]);
       });
 
       it('subscribes to changes in the datagrid Items (_items)', function () {
-        const initialContent = this.fixture.elementRef.nativeElement.textContent;
+        const initialContent = fixture.elementRef.nativeElement.textContent;
         expect(initialContent.trim()).toEqual('12345');
-        this.testComponent.numbers.push(6);
-        this.fixture.detectChanges();
-        const updatedContent = this.fixture.elementRef.nativeElement.textContent;
+        testComponent.numbers.push(6);
+        fixture.detectChanges();
+        const updatedContent = fixture.elementRef.nativeElement.textContent;
         expect(updatedContent.trim()).toEqual('123456');
       });
 
       it('handles a null input for the array of items', function () {
-        this.testComponent.numbers = null;
-        this.fixture.detectChanges();
-        expect(this.clarityDirective._rawItems).toEqual([]);
+        testComponent.numbers = null;
+        fixture.detectChanges();
+        expect((clarityDirective as any)._rawItems).toEqual([]);
       });
 
       it('handles an undefined input for the array of items', function () {
-        this.testComponent.numbers = undefined;
-        this.fixture.detectChanges();
-        expect(this.clarityDirective._rawItems).toEqual([]);
+        testComponent.numbers = undefined;
+        fixture.detectChanges();
+        expect((clarityDirective as any)._rawItems).toEqual([]);
       });
     });
 
     describe('handles Item arrays correctly', () => {
+      let fixture: ComponentFixture<FullTest>;
+      let testComponent: FullTest;
+      let clarityDirective: ClrDatagridItems<number>;
+      let itemsProvider: Items;
+
       beforeEach(function () {
         /*
          * Since the ClrDatagridItems element is a template that isn't rendered in the DOM,
@@ -107,53 +117,53 @@ export default function (): void {
           declarations: [TrackByIndexTest],
           providers: [Items, FiltersProvider, Sort, Page, StateDebouncer],
         });
-        this.fixture = TestBed.createComponent(TrackByIndexTest);
-        this.fixture.detectChanges();
-        this.testComponent = this.fixture.componentInstance;
-        this.clarityDirective = this.fixture.componentInstance.datagridItems;
-        this.itemsProvider = TestBed.inject(Items);
+        fixture = TestBed.createComponent(TrackByIndexTest);
+        fixture.detectChanges();
+        testComponent = fixture.componentInstance;
+        clarityDirective = fixture.componentInstance.datagridItems;
+        itemsProvider = TestBed.inject(Items);
       });
 
       it('keeps the Items provider up to date with array changes', function () {
-        expect(this.itemsProvider.displayed).toEqual([1, 2, 3, 4, 5]);
-        this.testComponent.numbers[0] = 6;
-        this.fixture.detectChanges();
-        expect(this.itemsProvider.displayed).toEqual([6, 2, 3, 4, 5]);
-        this.testComponent.numbers = [];
-        this.fixture.detectChanges();
-        expect(this.itemsProvider.displayed).toEqual([]);
+        expect(itemsProvider.displayed).toEqual([1, 2, 3, 4, 5]);
+        testComponent.numbers[0] = 6;
+        fixture.detectChanges();
+        expect(itemsProvider.displayed).toEqual([6, 2, 3, 4, 5]);
+        testComponent.numbers = [];
+        fixture.detectChanges();
+        expect(itemsProvider.displayed).toEqual([]);
       });
 
       it('receives an input for the trackBy option', function () {
-        expect(this.clarityDirective.iterableProxy.ngForTrackBy).toBe(this.testComponent.trackBy);
+        expect((clarityDirective as any).iterableProxy.ngForTrackBy).toBe(testComponent.trackBy);
       });
 
       it('items receive the provided trackBy option', function () {
-        expect(this.clarityDirective.items.trackBy).toBe(this.testComponent.trackBy);
+        expect((clarityDirective as any).items.trackBy).toBe(testComponent.trackBy);
       });
 
       it('correctly mutates and resets an array with trackBy', function () {
         // Initial state
-        this.fixture.nativeElement.querySelectorAll('li:first-child').forEach(li => (li.style.color = 'red'));
-        const firstItem = this.fixture.nativeElement.querySelector('li');
+        fixture.nativeElement.querySelectorAll('li:first-child').forEach(li => (li.style.color = 'red'));
+        const firstItem = fixture.nativeElement.querySelector('li');
         expect(firstItem.style.color).toBe('red');
         expect(firstItem.textContent.trim()).toBe('1');
 
         // First mutation
-        this.testComponent.numbers.unshift(42);
-        this.fixture.detectChanges();
-        const unshiftedItem = this.fixture.nativeElement.querySelector('li');
-        expect(this.itemsProvider.displayed).toEqual([42, 1, 2, 3, 4, 5]);
+        testComponent.numbers.unshift(42);
+        fixture.detectChanges();
+        const unshiftedItem = fixture.nativeElement.querySelector('li');
+        expect(itemsProvider.displayed).toEqual([42, 1, 2, 3, 4, 5]);
         expect(unshiftedItem.style.color).toBe('red');
 
         // Second mutation
-        this.testComponent.numbers.unshift(42);
-        this.fixture.detectChanges();
+        testComponent.numbers.unshift(42);
+        fixture.detectChanges();
 
         // Resetting
-        this.testComponent.numbers = [42];
-        this.fixture.detectChanges();
-        const replacedItem = this.fixture.nativeElement.querySelector('li');
+        testComponent.numbers = [42];
+        fixture.detectChanges();
+        const replacedItem = fixture.nativeElement.querySelector('li');
         expect(replacedItem.style.color).toBe('red');
       });
     });

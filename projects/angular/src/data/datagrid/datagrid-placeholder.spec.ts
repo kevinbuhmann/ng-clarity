@@ -18,18 +18,21 @@ import { StateDebouncer } from './providers/state-debouncer.provider';
 export default function (): void {
   describe('ClrDatagridPlaceholder component', function () {
     describe('Typescript API', function () {
+      let itemsProvider: Items;
+      let component: ClrDatagridPlaceholder;
+
       beforeEach(function () {
-        this.pageProvider = new Page(new StateDebouncer());
-        this.itemsProvider = new Items(null, null, this.pageProvider);
-        this.component = new ClrDatagridPlaceholder(this.itemsProvider);
+        const pageProvider = new Page(new StateDebouncer());
+        itemsProvider = new Items(null, null, pageProvider);
+        component = new ClrDatagridPlaceholder(itemsProvider);
       });
 
       it('detects if the Datagrid is empty', function () {
-        expect(this.component.emptyDatagrid).toBe(true);
-        this.itemsProvider.all = new Array(1);
-        expect(this.component.emptyDatagrid).toBe(false);
-        this.itemsProvider.all = [];
-        expect(this.component.emptyDatagrid).toBe(true);
+        expect(component.emptyDatagrid).toBe(true);
+        itemsProvider.all = new Array(1);
+        expect(component.emptyDatagrid).toBe(false);
+        itemsProvider.all = [];
+        expect(component.emptyDatagrid).toBe(true);
       });
     });
 

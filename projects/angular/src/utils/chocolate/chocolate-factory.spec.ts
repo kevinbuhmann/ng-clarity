@@ -5,7 +5,7 @@
  */
 
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { OompaLoompa } from './oompa-loompa';
@@ -16,28 +16,31 @@ describe('Chocolate factory', function () {
   // I've been meaning to go back on them for a while now.
 
   describe('projected content', function () {
+    let fixture: ComponentFixture<ChocolateTest>;
+    let testComponent: ChocolateTest;
+
     beforeEach(function () {
       TestBed.configureTestingModule({ declarations: [ChocolateTest, ChocolateParent, ChocolateChild] });
-      this.fixture = TestBed.createComponent(ChocolateTest);
-      this.fixture.detectChanges();
-      this.testComponent = this.fixture.componentInstance;
+      fixture = TestBed.createComponent(ChocolateTest);
+      fixture.detectChanges();
+      testComponent = fixture.componentInstance;
     });
 
     it('handles chocolate', function () {
-      this.testComponent.children.push(0);
-      expect(() => this.fixture.detectChanges()).not.toThrow();
+      testComponent.children.push(0);
+      expect(() => fixture.detectChanges()).not.toThrow();
     });
 
     it('only detects changes on out-of-date views', function () {
-      const parent: ChocolateParent = this.fixture.debugElement.query(By.directive(ChocolateParent)).componentInstance;
-      const children: ChocolateChild[] = this.fixture.debugElement
+      const parent: ChocolateParent = fixture.debugElement.query(By.directive(ChocolateParent)).componentInstance;
+      const children: ChocolateChild[] = fixture.debugElement
         .queryAll(By.directive(ChocolateChild))
         .map((child: any) => child.componentInstance);
       parent.changes = 0;
       children.forEach(child => (child.changes = 0));
 
-      this.testComponent.children.push(0);
-      this.fixture.detectChanges();
+      testComponent.children.push(0);
+      fixture.detectChanges();
 
       /*
        * We have one extra change detection for each because of dev mode
@@ -51,8 +54,8 @@ describe('Chocolate factory', function () {
     });
 
     it('properly cleans up when components are destroyed', function () {
-      this.testComponent.children.pop();
-      expect(() => this.fixture.detectChanges()).not.toThrow();
+      testComponent.children.pop();
+      expect(() => fixture.detectChanges()).not.toThrow();
     });
   });
 });

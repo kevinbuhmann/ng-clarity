@@ -5,7 +5,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { WrappedColumn } from './wrapped-column';
 
@@ -17,30 +17,27 @@ class WrappedColumnTest {
   wrapper: WrappedColumn;
 }
 
-interface TestContext {
-  fixture: ComponentFixture<WrappedColumnTest>;
-  wrapper: WrappedColumn;
-}
-
 export default function (): void {
   describe('WrappedColumn', () => {
-    beforeEach(function (this: TestContext) {
+    let wrapper: WrappedColumn;
+
+    beforeEach(function () {
       TestBed.configureTestingModule({ declarations: [WrappedColumn, WrappedColumnTest] });
-      this.fixture = TestBed.createComponent(WrappedColumnTest);
-      this.wrapper = this.fixture.componentInstance.wrapper;
-      this.fixture.detectChanges();
+      const fixture = TestBed.createComponent(WrappedColumnTest);
+      wrapper = fixture.componentInstance.wrapper;
+      fixture.detectChanges();
     });
 
-    it('should have a columnView', function (this: TestContext) {
-      expect(this.wrapper.columnView).toBeDefined();
+    it('should have a columnView', function () {
+      expect(wrapper.columnView).toBeDefined();
     });
 
-    it('should have a templateRef to the portal', function (this: TestContext) {
-      expect(this.wrapper.templateRef).toBeDefined();
+    it('should have a templateRef to the portal', function () {
+      expect(wrapper.templateRef).toBeDefined();
     });
 
-    it('projects content into the template', function (this: TestContext) {
-      expect(this.wrapper.columnView.rootNodes[0].textContent.trim()).toBe('Hello World!');
+    it('projects content into the template', function () {
+      expect(wrapper.columnView.rootNodes[0].textContent.trim()).toBe('Hello World!');
     });
   });
 }

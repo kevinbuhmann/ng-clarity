@@ -38,14 +38,6 @@ class TestComponent {
   expandable: boolean | undefined;
 }
 
-interface TsApiContext {
-  node: ClrTreeNode<void>;
-  parent: ClrTreeNode<void>;
-  featureService: TreeFeaturesService<void>;
-  expandService: IfExpandService;
-  focusManagerService: TreeFocusManagerService<void>;
-}
-
 export default function (): void {
   describe('ClrTreeNode Component', function () {
     type Context = TestContext<ClrTreeNode<void>, TestComponent>;
@@ -66,128 +58,132 @@ export default function (): void {
     });
 
     describe('Typescript API', function () {
-      beforeEach(function (this: TsApiContext) {
-        this.featureService = new TreeFeaturesService<void>();
-        this.expandService = new IfExpandService();
+      let featureService: TreeFeaturesService<void>;
+      let expandService: IfExpandService;
+      let focusManagerService: TreeFocusManagerService<void>;
+      let parent: ClrTreeNode<void>;
+      let node: ClrTreeNode<void>;
+
+      beforeEach(function () {
+        featureService = new TreeFeaturesService<void>();
+        expandService = new IfExpandService();
         const stringsService = new ClrCommonStringsService();
-        this.focusManagerService = new TreeFocusManagerService<void>();
+        focusManagerService = new TreeFocusManagerService<void>();
         const platformID = { provide: PLATFORM_ID, useValue: 'browser' };
-        this.parent = new ClrTreeNode(
+        parent = new ClrTreeNode(
           'parent',
           platformID,
           undefined,
           undefined,
-          this.featureService,
-          this.expandService,
+          featureService,
+          expandService,
           stringsService,
-          this.focusManagerService,
+          focusManagerService,
           null
         );
-        this.node = new ClrTreeNode(
+        node = new ClrTreeNode(
           'node',
           platformID,
-          this.parent,
+          parent,
           undefined,
-          this.featureService,
-          this.expandService,
+          featureService,
+          expandService,
           stringsService,
-          this.focusManagerService,
+          focusManagerService,
           null
         );
       });
 
-      it('instantiates a DeclarativeTreeNodeModel', function (this: TsApiContext) {
-        expect(this.node._model instanceof DeclarativeTreeNodeModel).toBeTrue();
-        expect(this.node._model.parent).toBe(this.parent._model);
+      it('instantiates a DeclarativeTreeNodeModel', function () {
+        expect(node._model instanceof DeclarativeTreeNodeModel).toBeTrue();
+        expect(node._model.parent).toBe(parent._model);
       });
 
-      it('is selected if the model is selected', function (this: TsApiContext) {
-        expect(this.node.selected).toBe(ClrSelectedState.UNSELECTED);
-        this.node._model.selected.next(ClrSelectedState.SELECTED);
-        expect(this.node.selected).toBe(ClrSelectedState.SELECTED);
+      it('is selected if the model is selected', function () {
+        expect(node.selected).toBe(ClrSelectedState.UNSELECTED);
+        node._model.selected.next(ClrSelectedState.SELECTED);
+        expect(node.selected).toBe(ClrSelectedState.SELECTED);
       });
 
-      it('selects the model when selected and propagates selection if the tree is eager', function (this: TsApiContext) {
-        this.featureService.eager = true;
-        const spy = spyOn(this.node._model, 'setSelected');
-        this.node.selected = ClrSelectedState.SELECTED;
+      it('selects the model when selected and propagates selection if the tree is eager', function () {
+        featureService.eager = true;
+        const spy = spyOn(node._model, 'setSelected');
+        node.selected = ClrSelectedState.SELECTED;
         expect(spy).toHaveBeenCalledWith(ClrSelectedState.SELECTED, true, true);
-        this.node.selected = ClrSelectedState.INDETERMINATE;
+        node.selected = ClrSelectedState.INDETERMINATE;
         expect(spy).toHaveBeenCalledWith(ClrSelectedState.INDETERMINATE, true, true);
       });
 
-      it('selects the model when selected and does not propagate selection if the tree is lazy', function (this: TsApiContext) {
-        this.featureService.eager = false;
-        const spy = spyOn(this.node._model, 'setSelected');
-        this.node.selected = ClrSelectedState.SELECTED;
+      it('selects the model when selected and does not propagate selection if the tree is lazy', function () {
+        featureService.eager = false;
+        const spy = spyOn(node._model, 'setSelected');
+        node.selected = ClrSelectedState.SELECTED;
         expect(spy).toHaveBeenCalledWith(ClrSelectedState.SELECTED, false, false);
-        this.node.selected = ClrSelectedState.INDETERMINATE;
+        node.selected = ClrSelectedState.INDETERMINATE;
         expect(spy).toHaveBeenCalledWith(ClrSelectedState.INDETERMINATE, false, false);
       });
 
-      it('gracefully handles boolean selection', function (this: TsApiContext) {
-        this.node.selected = true;
-        expect(this.node._model.selected.value).toBe(ClrSelectedState.SELECTED);
-        this.node.selected = false;
-        expect(this.node._model.selected.value).toBe(ClrSelectedState.UNSELECTED);
+      it('gracefully handles boolean selection', function () {
+        node.selected = true;
+        expect(node._model.selected.value).toBe(ClrSelectedState.SELECTED);
+        node.selected = false;
+        expect(node._model.selected.value).toBe(ClrSelectedState.UNSELECTED);
       });
 
-      it('makes the tree selectable if selection is set', function (this: TsApiContext) {
-        expect(this.featureService.selectable).toBeFalse();
-        this.node.selected = ClrSelectedState.UNSELECTED;
-        expect(this.featureService.selectable).toBeTrue();
+      it('makes the tree selectable if selection is set', function () {
+        expect(featureService.selectable).toBeFalse();
+        node.selected = ClrSelectedState.UNSELECTED;
+        expect(featureService.selectable).toBeTrue();
       });
 
-      it('is not expandable by default', function (this: TsApiContext) {
-        expect(this.node.isExpandable()).toBeFalse();
+      it('is not expandable by default', function () {
+        expect(node.isExpandable()).toBeFalse();
       });
 
-      it('is expandable if the Expand service is expandable', function (this: TsApiContext) {
-        this.expandService.expandable++;
-        expect(this.node.isExpandable()).toBeTrue();
+      it('is expandable if the Expand service is expandable', function () {
+        expandService.expandable++;
+        expect(node.isExpandable()).toBeTrue();
       });
 
-      it('is expandable if it has children', function (this: TsApiContext) {
-        this.node._model.children.push(
-          new DeclarativeTreeNodeModel(this.node._model as DeclarativeTreeNodeModel<void>)
-        );
-        expect(this.node.isExpandable()).toBeTrue();
+      it('is expandable if it has children', function () {
+        node._model.children.push(new DeclarativeTreeNodeModel(node._model as DeclarativeTreeNodeModel<void>));
+        expect(node.isExpandable()).toBeTrue();
       });
 
-      it('is expandable handles no children', function (this: TsApiContext) {
-        this.node._model.children = undefined;
+      it('is expandable handles no children', function () {
+        node._model.children = undefined;
         expect(() => {
-          this.node.isExpandable();
+          node.isExpandable();
         }).not.toThrow();
       });
 
-      it('is expanded if the expand service is', function (this: TsApiContext) {
-        expect(this.node.expanded).toBeFalse();
-        this.expandService.toggle();
-        expect(this.node.expanded).toBeTrue();
+      it('is expanded if the expand service is', function () {
+        expect(node.expanded).toBeFalse();
+        expandService.toggle();
+        expect(node.expanded).toBeTrue();
       });
 
-      it('is expandable and does not fetch children if overriden to be expandable', function (this: TsApiContext) {
-        const recursiveModel = new RecursiveTreeNodeModel(null, null, () => undefined, this.featureService);
+      it('is expandable and does not fetch children if overriden to be expandable', function () {
+        const recursiveModel = new RecursiveTreeNodeModel(null, null, () => undefined, featureService);
         const spy = spyOnProperty(recursiveModel, 'children', 'get');
-        this.node._model = recursiveModel;
-        this.node.expandable = true;
-        expect(this.node.isExpandable()).toBeTrue();
+        node._model = recursiveModel;
+        node.expandable = true;
+        expect(node.isExpandable()).toBeTrue();
         expect(spy).not.toHaveBeenCalled();
       });
 
-      it('is not expandable and does not fetch children if overriden not to be expandable', function (this: TsApiContext) {
-        const recursiveModel = new RecursiveTreeNodeModel(null, null, () => undefined, this.featureService);
+      it('is not expandable and does not fetch children if overriden not to be expandable', function () {
+        const recursiveModel = new RecursiveTreeNodeModel(null, null, () => undefined, featureService);
         const spy = spyOnProperty(recursiveModel, 'children', 'get');
-        this.node._model = recursiveModel;
-        this.node.expandable = false;
-        expect(this.node.isExpandable()).toBeFalse();
+        node._model = recursiveModel;
+        node.expandable = false;
+        expect(node.isExpandable()).toBeFalse();
         expect(spy).not.toHaveBeenCalled();
       });
 
-      it('tells the expand service to expand', function (this: TsApiContext) {
-        this.node.expanded = true;
-        expect(this.expandService.expanded).toBeTrue();
+      it('tells the expand service to expand', function () {
+        node.expanded = true;
+        expect(expandService.expanded).toBeTrue();
       });
     });
 

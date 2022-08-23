@@ -35,12 +35,6 @@ class TestComponent {
   public height = 300;
 }
 
-interface TestContext {
-  fixture: ComponentFixture<TestComponent>;
-  sizeService: TableSizeService;
-  table: HTMLElement;
-}
-
 const PROVIDERS_NEEDED = [
   Sort,
   FiltersProvider,
@@ -54,29 +48,33 @@ const PROVIDERS_NEEDED = [
 
 export default function (): void {
   describe('TableSizeService', function () {
-    beforeEach(function (this: TestContext) {
+    let fixture: ComponentFixture<TestComponent>;
+    let sizeService: TableSizeService;
+    let table: HTMLElement;
+
+    beforeEach(function () {
       TestBed.configureTestingModule({
         imports: [ClrDatagridModule],
         declarations: [TestComponent],
         providers: [PROVIDERS_NEEDED],
       });
-      this.fixture = TestBed.createComponent(TestComponent);
-      this.sizeService = this.fixture.debugElement.injector.get(TableSizeService);
-      this.fixture.detectChanges();
-      this.table = this.fixture.elementRef.nativeElement.children[0]; // reference to the TestComponnt table
-      this.sizeService.tableRef = this.table; // setting service up with the component table for testing
+      fixture = TestBed.createComponent(TestComponent);
+      sizeService = fixture.debugElement.injector.get(TableSizeService);
+      fixture.detectChanges();
+      table = fixture.elementRef.nativeElement.children[0]; // reference to the TestComponnt table
+      sizeService.tableRef = table; // setting service up with the component table for testing
     });
 
     it('sets a tableRef property with an elementReference', function () {
       // sizeService.tableRef is set in beforeEach
-      expect(this.sizeService.tableRef).toBeDefined();
+      expect(sizeService.tableRef).toBeDefined();
     });
 
-    it('calculates the correct column drag height', function (this: TestContext) {
-      expect(this.sizeService.getColumnDragHeight()).toEqual('300px');
-      this.fixture.componentInstance.height = 422;
-      this.fixture.detectChanges();
-      expect(this.sizeService.getColumnDragHeight()).toEqual('422px');
+    it('calculates the correct column drag height', function () {
+      expect(sizeService.getColumnDragHeight()).toEqual('300px');
+      fixture.componentInstance.height = 422;
+      fixture.detectChanges();
+      expect(sizeService.getColumnDragHeight()).toEqual('422px');
     });
   });
 }

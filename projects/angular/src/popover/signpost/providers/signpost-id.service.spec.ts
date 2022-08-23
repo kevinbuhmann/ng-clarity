@@ -8,27 +8,25 @@ import { Observable } from 'rxjs';
 
 import { SignpostIdService } from './signpost-id.service';
 
-interface TestContext {
-  idService: SignpostIdService;
-}
-
 export default function (): void {
   describe('Signpost Id Service', function () {
-    beforeEach(function (this: TestContext) {
-      this.idService = new SignpostIdService();
+    let idService: SignpostIdService;
+
+    beforeEach(function () {
+      idService = new SignpostIdService();
     });
 
-    it('should set an id', function (this: TestContext) {
+    it('should set an id', function () {
       let currentId;
-      this.idService.id.subscribe(newId => {
+      idService.id.subscribe(newId => {
         currentId = newId;
       });
-      this.idService.setId('clr-id-1');
+      idService.setId('clr-id-1');
       expect(currentId).toBe('clr-id-1');
     });
 
-    it('exposes and observable for latest id', function (this: TestContext) {
-      const idObservable = this.idService.id;
+    it('exposes and observable for latest id', function () {
+      const idObservable = idService.id;
       expect(idObservable).toBeDefined();
       expect(idObservable instanceof Observable).toBe(true);
     });

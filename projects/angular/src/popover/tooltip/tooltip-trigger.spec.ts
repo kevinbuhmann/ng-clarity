@@ -20,20 +20,18 @@ class SimpleTest {
   ariaLabel = 'Uniq aria label';
 }
 
-interface TooltipContext extends TestContext<ClrTooltipTrigger, SimpleTest> {
-  tooltipIdService: TooltipIdService;
-  toggleService: ClrPopoverToggleService;
-}
+type TooltipContext = TestContext<ClrTooltipTrigger, SimpleTest>;
 
 export default function (): void {
   describe('TooltipTrigger component', function (this: TooltipContext) {
+    let tooltipIdService: TooltipIdService;
+
     spec(ClrTooltipTrigger, SimpleTest, ClrTooltipModule, {
       providers: [ClrPopoverToggleService, UNIQUE_ID_PROVIDER, TooltipIdService],
     });
 
     beforeEach(function () {
-      this.toggleService = this.getClarityProvider(ClrPopoverToggleService);
-      this.tooltipIdService = this.getClarityProvider(TooltipIdService);
+      tooltipIdService = this.getClarityProvider(TooltipIdService);
       this.detectChanges();
     });
 
@@ -48,12 +46,12 @@ export default function (): void {
 
       it('responds to the TooltipIdService', function () {
         let testId;
-        this.tooltipIdService.id.subscribe(idChange => {
+        tooltipIdService.id.subscribe(idChange => {
           testId = idChange;
         });
         expect(this.clarityDirective.ariaDescribedBy).toEqual(testId);
 
-        this.tooltipIdService.updateId('clr-id-99');
+        tooltipIdService.updateId('clr-id-99');
         this.detectChanges();
         expect(this.clarityDirective.ariaDescribedBy).toEqual(testId);
       });

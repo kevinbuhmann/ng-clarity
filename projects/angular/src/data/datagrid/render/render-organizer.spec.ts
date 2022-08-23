@@ -7,40 +7,35 @@
 import { DatagridRenderStep } from '../enums/render-step.enum';
 import { DatagridRenderOrganizer } from './render-organizer';
 
-/**
- * Having a little fun with Typescript just to see how it goes.
- */
-interface UserContext {
-  organizer: DatagridRenderOrganizer;
-}
-
 export default function (): void {
   describe('DatagridRenderOrganizer', function () {
-    beforeEach(function (this: UserContext) {
-      this.organizer = new DatagridRenderOrganizer();
+    let organizer: DatagridRenderOrganizer;
+
+    beforeEach(function () {
+      organizer = new DatagridRenderOrganizer();
     });
 
-    it("doesn't clear widths on the first rendering", function (this: UserContext) {
+    it("doesn't clear widths on the first rendering", function () {
       let clearedWidths = false;
-      this.organizer.renderStep.subscribe(step => {
+      organizer.renderStep.subscribe(step => {
         if (step === DatagridRenderStep.CLEAR_WIDTHS) {
           clearedWidths = true;
         }
       });
-      this.organizer.resize();
+      organizer.resize();
       expect(clearedWidths).toBe(false);
-      this.organizer.resize();
+      organizer.resize();
       expect(clearedWidths).toBe(true);
     });
 
-    it('follows the correct rendering order', function (this: UserContext) {
+    it('follows the correct rendering order', function () {
       // Initial sizing to make sure clearWidths is included in the next one.
-      this.organizer.resize();
+      organizer.resize();
       const stepsRecieved: DatagridRenderStep[] = [];
-      this.organizer.renderStep.subscribe(renderStep => {
+      organizer.renderStep.subscribe(renderStep => {
         stepsRecieved.push(renderStep);
       });
-      this.organizer.resize();
+      organizer.resize();
 
       expect(stepsRecieved).toEqual([
         DatagridRenderStep.CALCULATE_MODE_ON,
@@ -51,11 +46,11 @@ export default function (): void {
       ]);
     });
 
-    it('provides a filtering utility that targets one step', function (this: UserContext) {
+    it('provides a filtering utility that targets one step', function () {
       let currentStep: DatagridRenderStep = null;
-      this.organizer.filterRenderSteps(DatagridRenderStep.ALIGN_COLUMNS).subscribe(step => (currentStep = step));
+      organizer.filterRenderSteps(DatagridRenderStep.ALIGN_COLUMNS).subscribe(step => (currentStep = step));
       expect(currentStep).toBeNull();
-      this.organizer.resize();
+      organizer.resize();
       expect(currentStep).toBe(DatagridRenderStep.ALIGN_COLUMNS);
     });
   });

@@ -47,50 +47,51 @@ export default function () {
     });
 
     describe('Template API', function () {
-      beforeEach(function () {
+      function create<T>(componentType: Type<T>) {
         const service = new MultiAlertService();
         const queryList = new QueryList<ClrAlert>();
 
-        this.create = <T>(componentType: Type<T>) => {
-          TestBed.configureTestingModule({
-            imports: [ClrEmphasisModule],
-            declarations: [componentType],
-            providers: [{ provide: MultiAlertService, useValue: service }],
-          });
-          this.fixture = TestBed.createComponent(componentType);
+        TestBed.configureTestingModule({
+          imports: [ClrEmphasisModule],
+          declarations: [componentType],
+          providers: [{ provide: MultiAlertService, useValue: service }],
+        });
+        const fixture = TestBed.createComponent(componentType);
 
-          this.alertFixture = TestBed.createComponent(ClrAlert);
-          this.alert = this.alertFixture.componentInstance;
-          this.secondAlertFixture = TestBed.createComponent(ClrAlert);
-          this.secondAlert = this.secondAlertFixture.componentInstance;
+        const alertFixture = TestBed.createComponent(ClrAlert);
+        const alert = alertFixture.componentInstance;
+        const secondAlertFixture = TestBed.createComponent(ClrAlert);
+        const secondAlert = secondAlertFixture.componentInstance;
 
-          queryList.reset([this.alert, this.secondAlert]);
-          service.manage(queryList);
+        queryList.reset([alert, secondAlert]);
+        service.manage(queryList);
 
-          this.fixture.detectChanges();
-        };
-      });
+        fixture.detectChanges();
+
+        return { fixture, alertFixture, alert, secondAlertFixture, secondAlert };
+      }
 
       it('offers two way binding on the alert index', function () {
-        this.create(TestIndex);
-        this.fixture.componentInstance.index = 1;
-        this.fixture.detectChanges();
-        expect(this.fixture.componentInstance.pagerInstance.currentAlertIndex).toEqual(1);
+        const { fixture } = create(TestIndex);
+        fixture.componentInstance.index = 1;
+        fixture.detectChanges();
+        expect(fixture.componentInstance.pagerInstance.currentAlertIndex).toEqual(1);
 
-        this.fixture.componentInstance.pagerInstance.currentAlertIndex = 0;
-        this.fixture.detectChanges();
-        expect(this.fixture.componentInstance.index).toEqual(0);
+        fixture.componentInstance.pagerInstance.currentAlertIndex = 0;
+        fixture.detectChanges();
+        expect(fixture.componentInstance.index).toEqual(0);
       });
 
       it('offers two way binding on the alert instance', function () {
-        this.create(TestInstance);
-        this.fixture.componentInstance.currentAlert = this.secondAlert;
-        this.fixture.detectChanges();
-        expect(this.fixture.componentInstance.pagerInstance.currentAlert).toEqual(this.secondAlert);
+        const { fixture, alert, secondAlert } = create(TestInstance);
 
-        this.fixture.componentInstance.pagerInstance.currentAlert = this.alert;
-        this.fixture.detectChanges();
-        expect(this.fixture.componentInstance.currentAlert).toEqual(this.alert);
+        fixture.componentInstance.currentAlert = secondAlert;
+        fixture.detectChanges();
+        expect(fixture.componentInstance.pagerInstance.currentAlert).toEqual(secondAlert);
+
+        fixture.componentInstance.pagerInstance.currentAlert = alert;
+        fixture.detectChanges();
+        expect(fixture.componentInstance.currentAlert).toEqual(alert);
       });
     });
   });

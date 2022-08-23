@@ -695,14 +695,14 @@ export default function (): void {
 
     describe('Iterators', function () {
       it('projects rows when using ngFor', function () {
-        this.context = this.create(ClrDatagrid, NgForTest);
-        const rows = this.context.clarityElement.querySelectorAll('.datagrid-cell');
+        const context = this.create(ClrDatagrid, NgForTest);
+        const rows = context.clarityElement.querySelectorAll('.datagrid-cell');
         expect(['1', '1', '2', '4', '3', '9']).toEqual([...rows].map(r => r.textContent));
       });
 
       it('uses the rows template when using clrDgItems', function () {
-        this.context = this.create(ClrDatagrid, FullTest);
-        const rows = this.context.clarityElement.querySelectorAll('.datagrid-cell');
+        const context = this.create(ClrDatagrid, FullTest);
+        const rows = context.clarityElement.querySelectorAll('.datagrid-cell');
         expect(['1', '1', '2', '4', '3', '9']).toEqual([...rows].map(r => r.textContent));
       });
     });

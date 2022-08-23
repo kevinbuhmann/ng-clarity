@@ -42,15 +42,14 @@ class TestComponent {
 export default function (): void {
   describe('RecursiveChildren Component', function () {
     let TEST_ROOT: RecursiveTreeNodeModel<TestNode>;
-    type Context = TestContext<RecursiveChildren<TestNode>, TestComponent> & {
-      featuresService: TreeFeaturesService<TestNode>;
-      expandService: IfExpandService;
-    };
+    let featuresService: TreeFeaturesService<TestNode>;
+    let expandService: IfExpandService;
+    type Context = TestContext<RecursiveChildren<TestNode>, TestComponent>;
     spec(RecursiveChildren, TestComponent, undefined, { providers: [TreeFeaturesService, IfExpandService] });
 
     beforeEach(function (this: Context) {
-      this.featuresService = this.getProvider<TreeFeaturesService<TestNode>>(TreeFeaturesService);
-      this.expandService = this.getProvider(IfExpandService);
+      featuresService = this.getProvider<TreeFeaturesService<TestNode>>(TreeFeaturesService);
+      expandService = this.getProvider(IfExpandService);
       TEST_ROOT = new RecursiveTreeNodeModel(
         {
           name: 'root',
@@ -62,9 +61,9 @@ export default function (): void {
         },
         null,
         getChildren,
-        this.featuresService
+        featuresService
       );
-      this.featuresService.recursion = {
+      featuresService.recursion = {
         template: this.hostComponent.template,
         root: [TEST_ROOT],
       };
@@ -80,7 +79,7 @@ export default function (): void {
     });
 
     it('does not render anything if the tree is not recursive', function (this: Context) {
-      delete this.featuresService.recursion;
+      delete featuresService.recursion;
       this.detectChanges();
       expect(this.clarityElement.textContent.trim()).toBe('');
     });
@@ -90,14 +89,14 @@ export default function (): void {
     });
 
     it('does not render anything if the tree is lazy and the parent is collapsed', function (this: Context) {
-      this.featuresService.eager = false;
+      featuresService.eager = false;
       this.detectChanges();
       expect(this.clarityElement.textContent.trim()).toBe('');
     });
 
     it('renders children if the tree is lazy and the parent is expanded', function (this: Context) {
-      this.featuresService.eager = false;
-      this.expandService.expanded = true;
+      featuresService.eager = false;
+      expandService.expanded = true;
       this.detectChanges();
       expect(this.clarityElement.textContent).toMatch(/A\s*B\s*C/);
     });
@@ -111,18 +110,18 @@ export default function (): void {
 
     it('does not destroy the children when he parent becomes collapsed if the tree is eager', function (this: Context) {
       const spy = spyOn(this.hostComponent.parent, 'clearChildren');
-      this.expandService.expanded = true;
+      expandService.expanded = true;
       expect(spy).not.toHaveBeenCalled();
-      this.expandService.expanded = false;
+      expandService.expanded = false;
       expect(spy).not.toHaveBeenCalled();
     });
 
     it('destroys the children when he parent becomes collapsed if the tree is lazy', function (this: Context) {
-      this.featuresService.eager = false;
+      featuresService.eager = false;
       const spy = spyOn(this.hostComponent.parent, 'clearChildren');
-      this.expandService.expanded = true;
+      expandService.expanded = true;
       expect(spy).not.toHaveBeenCalled();
-      this.expandService.expanded = false;
+      expandService.expanded = false;
       expect(spy).toHaveBeenCalled();
     });
 

@@ -10,104 +10,107 @@ import { StateDebouncer } from './state-debouncer.provider';
 
 export default function (): void {
   describe('Sort provider', function () {
+    let sortInstance: Sort;
+    let comparator: TestComparator;
+
     beforeEach(function () {
-      this.sortInstance = new Sort(new StateDebouncer());
-      this.comparator = new TestComparator();
+      sortInstance = new Sort(new StateDebouncer());
+      comparator = new TestComparator();
     });
 
     it('compares according to the current comparator', function () {
-      this.sortInstance.comparator = this.comparator;
-      expect(this.sortInstance.compare(1, 10)).toBeLessThan(0);
-      expect(this.sortInstance.compare(4, 4)).toBe(0);
-      expect(this.sortInstance.compare(42, 3)).toBeGreaterThan(0);
+      sortInstance.comparator = comparator;
+      expect(sortInstance.compare(1, 10)).toBeLessThan(0);
+      expect(sortInstance.compare(4, 4)).toBe(0);
+      expect(sortInstance.compare(42, 3)).toBeGreaterThan(0);
     });
 
     it('can reverse the order of the current comparator', function () {
-      this.sortInstance.comparator = this.comparator;
-      this.sortInstance.reverse = true;
-      expect(this.sortInstance.compare(1, 10)).toBeGreaterThan(0);
-      expect(this.sortInstance.compare(4, 4)).toBe(0);
-      expect(this.sortInstance.compare(42, 3)).toBeLessThan(0);
+      sortInstance.comparator = comparator;
+      sortInstance.reverse = true;
+      expect(sortInstance.compare(1, 10)).toBeGreaterThan(0);
+      expect(sortInstance.compare(4, 4)).toBe(0);
+      expect(sortInstance.compare(42, 3)).toBeLessThan(0);
     });
 
     it('exposes a toggle method to set the comparator', function () {
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.comparator).toBe(this.comparator);
-      this.sortInstance.toggle(this.comparator, true);
-      expect(this.sortInstance.comparator).toBe(this.comparator);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.comparator).toBe(comparator);
+      sortInstance.toggle(comparator, true);
+      expect(sortInstance.comparator).toBe(comparator);
     });
 
     it('reverses the order when toggle is called on the same comparator', function () {
       // Ascending
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(false);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(false);
       // Descending
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(true);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(true);
       // Ascending again
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(false);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(false);
     });
 
     it('always uses descending order if forceReverse is set', function () {
       // Force descending
-      this.sortInstance.toggle(this.comparator, true);
-      expect(this.sortInstance.reverse).toBe(true);
+      sortInstance.toggle(comparator, true);
+      expect(sortInstance.reverse).toBe(true);
       // No forcing, so should toggle from previous state
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(false);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(false);
       // Toggling to descending
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(true);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(true);
       // Force descending again
-      this.sortInstance.toggle(this.comparator, true);
-      expect(this.sortInstance.reverse).toBe(true);
+      sortInstance.toggle(comparator, true);
+      expect(sortInstance.reverse).toBe(true);
     });
 
     it('always uses ascending order when toggling a new comparator ', function () {
-      this.sortInstance.comparator = this.comparator;
-      expect(this.sortInstance.reverse).toBe(false);
-      this.sortInstance.toggle(new TestComparator());
-      expect(this.sortInstance.reverse).toBe(false);
-      this.sortInstance.toggle(this.comparator);
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(true);
-      this.sortInstance.toggle(new TestComparator());
-      expect(this.sortInstance.reverse).toBe(false);
+      sortInstance.comparator = comparator;
+      expect(sortInstance.reverse).toBe(false);
+      sortInstance.toggle(new TestComparator());
+      expect(sortInstance.reverse).toBe(false);
+      sortInstance.toggle(comparator);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(true);
+      sortInstance.toggle(new TestComparator());
+      expect(sortInstance.reverse).toBe(false);
     });
 
     it('always uses descending order if forceReverse is set even when toggling a new comparator ', function () {
-      this.sortInstance.comparator = this.comparator;
-      expect(this.sortInstance.reverse).toBe(false);
-      this.sortInstance.toggle(new TestComparator(), true);
-      expect(this.sortInstance.reverse).toBe(true);
-      this.sortInstance.toggle(this.comparator);
-      this.sortInstance.toggle(this.comparator);
-      expect(this.sortInstance.reverse).toBe(true);
-      this.sortInstance.toggle(new TestComparator());
-      expect(this.sortInstance.reverse).toBe(false);
+      sortInstance.comparator = comparator;
+      expect(sortInstance.reverse).toBe(false);
+      sortInstance.toggle(new TestComparator(), true);
+      expect(sortInstance.reverse).toBe(true);
+      sortInstance.toggle(comparator);
+      sortInstance.toggle(comparator);
+      expect(sortInstance.reverse).toBe(true);
+      sortInstance.toggle(new TestComparator());
+      expect(sortInstance.reverse).toBe(false);
     });
 
     it('exposes an Observable to follow sort changes', function () {
       let nbChanges = 0;
       let latestComparator: ClrDatagridComparatorInterface<number>;
       let latestReverse: boolean;
-      this.sortInstance.change.subscribe((sort: Sort<number>) => {
+      sortInstance.change.subscribe((sort: Sort<number>) => {
         nbChanges++;
         latestComparator = sort.comparator;
         latestReverse = sort.reverse;
       });
-      this.sortInstance.toggle(this.comparator);
-      expect(latestComparator).toBe(this.comparator);
+      sortInstance.toggle(comparator);
+      expect(latestComparator).toBe(comparator);
       expect(latestReverse).toBe(false);
-      this.sortInstance.reverse = true;
-      expect(latestComparator).toBe(this.comparator);
+      sortInstance.reverse = true;
+      expect(latestComparator).toBe(comparator);
       expect(latestReverse).toBe(true);
-      this.sortInstance.toggle(this.comparator);
-      expect(latestComparator).toBe(this.comparator);
+      sortInstance.toggle(comparator);
+      expect(latestComparator).toBe(comparator);
       expect(latestReverse).toBe(false);
       const secondComparator = new TestComparator();
-      this.sortInstance.toggle(secondComparator);
+      sortInstance.toggle(secondComparator);
       expect(latestComparator).toBe(secondComparator);
       expect(latestReverse).toBe(false);
       expect(nbChanges).toBe(4);

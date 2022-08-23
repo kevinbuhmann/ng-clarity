@@ -8,27 +8,25 @@ import { Observable } from 'rxjs';
 
 import { TooltipIdService } from './tooltip-id.service';
 
-interface TestContext {
-  idService: TooltipIdService;
-}
-
 export default function (): void {
   describe('Tooltip Id Service', function () {
-    beforeEach(function (this: TestContext) {
-      this.idService = new TooltipIdService();
+    let idService: TooltipIdService;
+
+    beforeEach(function () {
+      idService = new TooltipIdService();
     });
 
-    it('should set an id', function (this: TestContext) {
+    it('should set an id', function () {
       let currentId;
-      this.idService.id.subscribe(newId => {
+      idService.id.subscribe(newId => {
         currentId = newId;
       });
-      this.idService.updateId('clr-id-1');
+      idService.updateId('clr-id-1');
       expect(currentId).toBe('clr-id-1');
     });
 
-    it('exposes and observable for latest id', function (this: TestContext) {
-      const idObservable = this.idService.id;
+    it('exposes and observable for latest id', function () {
+      const idObservable = idService.id;
       expect(idObservable).toBeDefined();
       expect(idObservable instanceof Observable).toBe(true);
     });

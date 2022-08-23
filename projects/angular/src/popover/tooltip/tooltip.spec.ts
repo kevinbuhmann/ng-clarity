@@ -23,21 +23,21 @@ import { ClrTooltipModule } from './tooltip.module';
 })
 class SimpleTest {}
 
-interface TooltipContext extends TestContext<ClrTooltip, SimpleTest> {
-  tooltipIdService: TooltipIdService;
-}
+type TooltipContext = TestContext<ClrTooltip, SimpleTest>;
 
 export default function (): void {
   describe('Tooltip component', function () {
+    let tooltipIdService: TooltipIdService;
+
     spec(ClrTooltip, SimpleTest, ClrTooltipModule, { providers: [TooltipIdService] });
 
     beforeEach(function (this: TooltipContext) {
-      this.tooltipIdService = this.getClarityProvider(TooltipIdService);
+      tooltipIdService = this.getClarityProvider(TooltipIdService);
     });
 
     describe('TypeScript API', function (this: TooltipContext) {
       it('provides a TooltipIdService', function (this: TooltipContext) {
-        expect(this.tooltipIdService).toBeDefined();
+        expect(tooltipIdService).toBeDefined();
       });
     });
 

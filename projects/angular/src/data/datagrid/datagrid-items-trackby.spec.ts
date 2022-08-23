@@ -5,7 +5,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ClrDatagridItems } from './datagrid-items';
 import { ClrDatagridModule } from './datagrid.module';
@@ -17,6 +17,10 @@ import { StateDebouncer } from './providers/state-debouncer.provider';
 
 export default function (): void {
   describe('DatagridItemsTrackby directive', function () {
+    let fixture: ComponentFixture<FullTest>;
+    let testComponent: FullTest;
+    let itemsProvider: Items;
+
     beforeEach(function () {
       /*
        * Since the DatagridItems element is a template that isn't rendered in the DOM,
@@ -27,18 +31,18 @@ export default function (): void {
         declarations: [FullTest],
         providers: [Items, FiltersProvider, Sort, Page, StateDebouncer],
       });
-      this.fixture = TestBed.createComponent(FullTest);
-      this.fixture.detectChanges();
-      this.testComponent = this.fixture.componentInstance;
-      this.itemsProvider = TestBed.inject(Items);
+      fixture = TestBed.createComponent(FullTest);
+      fixture.detectChanges();
+      testComponent = fixture.componentInstance;
+      itemsProvider = TestBed.inject(Items);
     });
 
     it('receives an input for the trackBy option', function () {
-      expect(this.itemsProvider.trackBy).toBeUndefined();
+      expect(itemsProvider.trackBy).toBeUndefined();
       // eslint-disable-next-line
-      this.testComponent.trackBy = (index: number, _item: number) => index;
-      this.fixture.detectChanges();
-      expect(this.itemsProvider.trackBy).toBe(this.testComponent.trackBy);
+      testComponent.trackBy = (index: number, _item: number) => index;
+      fixture.detectChanges();
+      expect(itemsProvider.trackBy).toBe(testComponent.trackBy);
     });
   });
 }

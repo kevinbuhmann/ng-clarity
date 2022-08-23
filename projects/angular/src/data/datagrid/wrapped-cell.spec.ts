@@ -24,23 +24,25 @@ interface TestContext {
 
 export default function (): void {
   describe('WrappedCell', () => {
+    let wrapper: WrappedCell;
+
     beforeEach(function (this: TestContext) {
       TestBed.configureTestingModule({ declarations: [WrappedCell, WrappedCellTest] });
-      this.fixture = TestBed.createComponent(WrappedCellTest);
-      this.wrapper = this.fixture.componentInstance.wrapper;
-      this.fixture.detectChanges();
+      const fixture = TestBed.createComponent(WrappedCellTest);
+      wrapper = fixture.componentInstance.wrapper;
+      fixture.detectChanges();
     });
 
     it('should have a cellView', function (this: TestContext) {
-      expect(this.wrapper.cellView).toBeDefined();
+      expect(wrapper.cellView).toBeDefined();
     });
 
     it('should have a templateRef to the portal', function (this: TestContext) {
-      expect(this.wrapper.templateRef).toBeDefined();
+      expect(wrapper.templateRef).toBeDefined();
     });
 
     it('projects content into the template', function (this: TestContext) {
-      expect(this.wrapper.cellView.rootNodes[0].textContent.trim()).toBe('Hello World!');
+      expect(wrapper.cellView.rootNodes[0].textContent.trim()).toBe('Hello World!');
     });
   });
 }

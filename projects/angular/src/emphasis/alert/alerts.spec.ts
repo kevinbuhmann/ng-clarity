@@ -16,6 +16,7 @@ export default function () {
   describe('ClrAlerts component', function () {
     describe('Typescript API', function () {
       let component: ClrAlerts;
+      let alert: ClrAlert;
       let service: MultiAlertService;
       let queryList: QueryList<ClrAlert>;
 
@@ -25,36 +26,31 @@ export default function () {
         TestBed.configureTestingModule({ imports: [ClrEmphasisModule] });
 
         const alertFixture = TestBed.createComponent(ClrAlert);
-        this.alert = alertFixture.componentInstance;
+        alert = alertFixture.componentInstance;
 
         const anotherAlertFixture = TestBed.createComponent(ClrAlert);
-        this.anotherAlert = anotherAlertFixture.componentInstance;
+        const anotherAlert = anotherAlertFixture.componentInstance;
 
         queryList = new QueryList<ClrAlert>();
-        queryList.reset([this.alert, this.anotherAlert]);
+        queryList.reset([alert, anotherAlert]);
         service.manage(queryList);
         component = new ClrAlerts(service);
       });
 
       it('knows the current alert', function () {
-        expect(component.currentAlert).toEqual(this.alert);
+        expect(component.currentAlert).toEqual(alert);
       });
     });
 
     describe('Template API', function () {
-      let fixture: ComponentFixture<any>;
+      function create<T>(componentType: Type<T>) {
+        TestBed.configureTestingModule({ imports: [ClrEmphasisModule], declarations: [componentType] });
 
-      beforeEach(function () {
-        this.create = <T>(componentType: Type<T>) => {
-          TestBed.configureTestingModule({ imports: [ClrEmphasisModule], declarations: [componentType] });
-
-          fixture = TestBed.createComponent(componentType);
-          // fixture.detectChanges();
-        };
-      });
+        return TestBed.createComponent(componentType);
+      }
 
       it('offers two way binding on the alert index', function () {
-        this.create(TestComponent);
+        const fixture = create(TestComponent);
         const testComponent = fixture.componentInstance;
         fixture.detectChanges();
         testComponent.currentAlertIndex = 0;
@@ -66,7 +62,7 @@ export default function () {
       });
 
       it('allows changing alert index from 1 to 0', function () {
-        this.create(TestComponent);
+        const fixture = create(TestComponent);
         const testComponent = fixture.componentInstance;
         fixture.detectChanges();
         testComponent.currentAlertIndex = 1;
@@ -78,7 +74,7 @@ export default function () {
       });
 
       it('does not allow invalid indexes (undefined, null, -1, 1.5, string)', function () {
-        this.create(TestComponent);
+        const fixture = create(TestComponent);
         const testComponent = fixture.componentInstance;
         fixture.detectChanges();
         testComponent.currentAlertIndex = undefined;
@@ -93,13 +89,13 @@ export default function () {
         testComponent.currentAlertIndex = 1.5;
         fixture.detectChanges();
         expect(testComponent.alertsInstance.currentAlertIndex).toEqual(0);
-        testComponent.currentAlertIndex = 'string';
+        testComponent.currentAlertIndex = 'string' as any;
         fixture.detectChanges();
         expect(testComponent.alertsInstance.currentAlertIndex).toEqual(0);
       });
 
       it('offers two way binding on the alert instance', function () {
-        this.create(TestAlertInstance);
+        const fixture = create(TestAlertInstance);
         fixture.detectChanges();
 
         const clarityComponent = fixture.componentInstance.alertsInstance;
@@ -215,17 +211,18 @@ export default function () {
     });
 
     describe('Supports dynamic alerts', function () {
+      let fixture: ComponentFixture<DynamicAlerts>;
+
       beforeEach(function () {
         TestBed.configureTestingModule({ imports: [ClrEmphasisModule], declarations: [DynamicAlerts] });
 
-        this.fixture = TestBed.createComponent(DynamicAlerts);
-        this.compiled = this.fixture.nativeElement;
-        this.fixture.detectChanges();
+        fixture = TestBed.createComponent(DynamicAlerts);
+        fixture.detectChanges();
       });
 
       it('contains dynamic alerts and set an initial index', function () {
-        expect(this.fixture.componentInstance.alertsInstance.currentAlertIndex).toEqual(0);
-        expect(this.fixture.componentInstance.alertInstances.length).toEqual(2);
+        expect(fixture.componentInstance.alertsInstance.currentAlertIndex).toEqual(0);
+        expect(fixture.componentInstance.alertInstances.length).toEqual(2);
       });
     });
   });

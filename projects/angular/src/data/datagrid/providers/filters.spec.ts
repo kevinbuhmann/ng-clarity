@@ -7,86 +7,90 @@
 import { Subject } from 'rxjs';
 
 import { ClrDatagridFilterInterface } from '../interfaces/filter.interface';
-import { FiltersProvider } from './filters';
+import { FiltersProvider, RegisteredFilter } from './filters';
 import { Page } from './page';
 import { StateDebouncer } from './state-debouncer.provider';
 
 export default function (): void {
   describe('FiltersProvider provider', function () {
+    let filtersInstance: FiltersProvider;
+    let evenFilter: EvenFilter;
+    let positiveFilter: PositiveFilter;
+
     beforeEach(function () {
       const stateDebouncer = new StateDebouncer();
-      this.filtersInstance = new FiltersProvider(new Page(stateDebouncer), stateDebouncer);
-      this.evenFilter = new EvenFilter();
-      this.positiveFilter = new PositiveFilter();
-      this.filtersInstance.add(this.evenFilter);
-      this.filtersInstance.add(this.positiveFilter);
+      filtersInstance = new FiltersProvider(new Page(stateDebouncer), stateDebouncer);
+      evenFilter = new EvenFilter();
+      positiveFilter = new PositiveFilter();
+      filtersInstance.add(evenFilter);
+      filtersInstance.add(positiveFilter);
     });
 
     it('detects if it has active filters', function () {
-      expect(this.filtersInstance.hasActiveFilters()).toBe(false);
-      this.evenFilter.toggle();
-      expect(this.filtersInstance.hasActiveFilters()).toBe(true);
-      this.evenFilter.toggle();
-      expect(this.filtersInstance.hasActiveFilters()).toBe(false);
+      expect(filtersInstance.hasActiveFilters()).toBe(false);
+      evenFilter.toggle();
+      expect(filtersInstance.hasActiveFilters()).toBe(true);
+      evenFilter.toggle();
+      expect(filtersInstance.hasActiveFilters()).toBe(false);
     });
 
     it('can return a list of active filters', function () {
-      expect(this.filtersInstance.getActiveFilters()).toEqual([]);
-      this.evenFilter.toggle();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([this.evenFilter]);
-      this.positiveFilter.toggle();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([this.evenFilter, this.positiveFilter]);
-      this.evenFilter.toggle();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([this.positiveFilter]);
+      expect(filtersInstance.getActiveFilters()).toEqual([]);
+      evenFilter.toggle();
+      expect(filtersInstance.getActiveFilters()).toEqual([evenFilter]);
+      positiveFilter.toggle();
+      expect(filtersInstance.getActiveFilters()).toEqual([evenFilter, positiveFilter]);
+      evenFilter.toggle();
+      expect(filtersInstance.getActiveFilters()).toEqual([positiveFilter]);
     });
 
     it('ignores inactive filters', function () {
-      expect(this.filtersInstance.accepts(-1)).toBe(true);
-      expect(this.filtersInstance.accepts(-2)).toBe(true);
-      expect(this.filtersInstance.accepts(1)).toBe(true);
-      expect(this.filtersInstance.accepts(2)).toBe(true);
+      expect(filtersInstance.accepts(-1)).toBe(true);
+      expect(filtersInstance.accepts(-2)).toBe(true);
+      expect(filtersInstance.accepts(1)).toBe(true);
+      expect(filtersInstance.accepts(2)).toBe(true);
     });
 
     it('uses all active filters', function () {
-      this.positiveFilter.toggle();
-      expect(this.filtersInstance.accepts(-1)).toBe(false);
-      expect(this.filtersInstance.accepts(-2)).toBe(false);
-      expect(this.filtersInstance.accepts(1)).toBe(true);
-      expect(this.filtersInstance.accepts(2)).toBe(true);
-      this.evenFilter.toggle();
-      expect(this.filtersInstance.accepts(-1)).toBe(false);
-      expect(this.filtersInstance.accepts(-2)).toBe(false);
-      expect(this.filtersInstance.accepts(1)).toBe(false);
-      expect(this.filtersInstance.accepts(2)).toBe(true);
+      positiveFilter.toggle();
+      expect(filtersInstance.accepts(-1)).toBe(false);
+      expect(filtersInstance.accepts(-2)).toBe(false);
+      expect(filtersInstance.accepts(1)).toBe(true);
+      expect(filtersInstance.accepts(2)).toBe(true);
+      evenFilter.toggle();
+      expect(filtersInstance.accepts(-1)).toBe(false);
+      expect(filtersInstance.accepts(-2)).toBe(false);
+      expect(filtersInstance.accepts(1)).toBe(false);
+      expect(filtersInstance.accepts(2)).toBe(true);
     });
 
     it('exposes an Observable that proxies all filters changes', function () {
       let nbChanges = 0;
       let latestChanges: ClrDatagridFilterInterface<number>[];
-      this.filtersInstance.change.subscribe((changes: ClrDatagridFilterInterface<number>[]) => {
+      filtersInstance.change.subscribe((changes: ClrDatagridFilterInterface<number>[]) => {
         nbChanges++;
         latestChanges = changes;
       });
       expect(latestChanges).toBeUndefined();
-      this.evenFilter.toggle();
-      expect(latestChanges).toEqual([this.evenFilter]);
-      this.positiveFilter.toggle();
-      expect(latestChanges).toEqual([this.positiveFilter]);
-      this.evenFilter.toggle();
-      expect(latestChanges).toEqual([this.evenFilter]);
+      evenFilter.toggle();
+      expect(latestChanges).toEqual([evenFilter]);
+      positiveFilter.toggle();
+      expect(latestChanges).toEqual([positiveFilter]);
+      evenFilter.toggle();
+      expect(latestChanges).toEqual([evenFilter]);
       expect(nbChanges).toBe(3);
     });
 
     it('un-registers an inactive filter', function () {
       const filter = new InactiveFilter();
-      const registerInactiveFilter = this.filtersInstance.add(filter);
+      const registerInactiveFilter = filtersInstance.add(filter);
       let nbChanges = 0;
-      this.filtersInstance.change.subscribe(() => nbChanges++);
+      filtersInstance.change.subscribe(() => nbChanges++);
       filter.toggle();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([]);
+      expect(filtersInstance.getActiveFilters()).toEqual([]);
       expect(nbChanges).toBe(1);
       registerInactiveFilter.unregister();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([]);
+      expect(filtersInstance.getActiveFilters()).toEqual([]);
       expect(nbChanges).toBe(1);
       filter.toggle();
       expect(nbChanges).toBe(1);
@@ -94,14 +98,14 @@ export default function (): void {
 
     it('un-registers an active filter', function () {
       const filter = new EvenFilter();
-      const registeredFilter = this.filtersInstance.add(filter);
+      const registeredFilter = filtersInstance.add(filter);
       let nbChanges = 0;
-      this.filtersInstance.change.subscribe(() => nbChanges++);
+      filtersInstance.change.subscribe(() => nbChanges++);
       filter.toggle();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([filter]);
+      expect(filtersInstance.getActiveFilters()).toEqual([filter]);
       expect(nbChanges).toBe(1);
       registeredFilter.unregister();
-      expect(this.filtersInstance.getActiveFilters()).toEqual([]);
+      expect(filtersInstance.getActiveFilters()).toEqual([]);
       expect(nbChanges).toBe(2);
       filter.toggle();
       expect(nbChanges).toBe(2);
@@ -112,45 +116,48 @@ export default function (): void {
       const filter2 = new ActiveFilter();
       const filter3 = new ActiveFilter();
       let nbChanges = 0;
-      this.filtersInstance.change.subscribe(() => nbChanges++);
+      filtersInstance.change.subscribe(() => nbChanges++);
 
-      this.filtersInstance.add(filter);
-      const registeredFilterTest = this.filtersInstance.add(filter2);
-      this.filtersInstance.add(filter3);
+      filtersInstance.add(filter);
+      const registeredFilterTest = filtersInstance.add(filter2);
+      filtersInstance.add(filter3);
       expect(nbChanges).toBe(3);
 
       registeredFilterTest.unregister();
       registeredFilterTest.unregister();
       expect(nbChanges).toBe(4);
 
-      const filters = this.filtersInstance.getActiveFilters();
+      const filters = filtersInstance.getActiveFilters();
       expect(filters.length).toBe(2);
     });
   });
 
   describe('FiltersProvider provider unregisters filters correctly', function () {
+    let filtersInstance: FiltersProvider;
+    let registeredFilters: RegisteredFilter<any, NumFilter>[];
+
     beforeEach(function () {
       const stateDebouncer = new StateDebouncer();
-      this.filtersInstance = new FiltersProvider(new Page(stateDebouncer), stateDebouncer);
-      this.registeredFilters = [];
+      filtersInstance = new FiltersProvider(new Page(stateDebouncer), stateDebouncer);
+      registeredFilters = [];
       for (let i = 0; i < 8; i++) {
-        this.registeredFilters.push(this.filtersInstance.add(new NumFilter(i)));
+        registeredFilters.push(filtersInstance.add(new NumFilter(i)));
       }
     });
 
     it('should unregister the designated filters', function () {
-      expect(this.registeredFilters.length).toBe(this.filtersInstance.getActiveFilters().length);
+      expect(registeredFilters.length).toBe(filtersInstance.getActiveFilters().length);
 
-      this.registeredFilters[0].unregister();
-      this.registeredFilters[2].unregister();
-      this.registeredFilters[4].unregister();
-      this.registeredFilters[6].unregister();
+      registeredFilters[0].unregister();
+      registeredFilters[2].unregister();
+      registeredFilters[4].unregister();
+      registeredFilters[6].unregister();
 
-      expect(this.filtersInstance.getActiveFilters().length).toBe(this.registeredFilters.length - 4);
-      expect(this.filtersInstance.getActiveFilters()[0]).toEqual(this.registeredFilters[1].filter);
-      expect(this.filtersInstance.getActiveFilters()[1]).toEqual(this.registeredFilters[3].filter);
-      expect(this.filtersInstance.getActiveFilters()[2]).toEqual(this.registeredFilters[5].filter);
-      expect(this.filtersInstance.getActiveFilters()[3]).toEqual(this.registeredFilters[7].filter);
+      expect(filtersInstance.getActiveFilters().length).toBe(registeredFilters.length - 4);
+      expect(filtersInstance.getActiveFilters()[0]).toEqual(registeredFilters[1].filter);
+      expect(filtersInstance.getActiveFilters()[1]).toEqual(registeredFilters[3].filter);
+      expect(filtersInstance.getActiveFilters()[2]).toEqual(registeredFilters[5].filter);
+      expect(filtersInstance.getActiveFilters()[3]).toEqual(registeredFilters[7].filter);
     });
   });
 }

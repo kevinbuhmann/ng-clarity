@@ -5,7 +5,7 @@
  */
 
 import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { WrappedRow } from './wrapped-row';
 
@@ -17,30 +17,27 @@ class WrappedRowTest {
   wrapper: WrappedRow;
 }
 
-interface TestContext {
-  fixture: ComponentFixture<WrappedRowTest>;
-  wrapper: WrappedRow;
-}
-
 export default function (): void {
   describe('WrappedRow', () => {
-    beforeEach(function (this: TestContext) {
+    let wrapper: WrappedRow;
+
+    beforeEach(function () {
       TestBed.configureTestingModule({ declarations: [WrappedRow, WrappedRowTest] });
-      this.fixture = TestBed.createComponent(WrappedRowTest);
-      this.wrapper = this.fixture.componentInstance.wrapper;
-      this.fixture.detectChanges();
+      const fixture = TestBed.createComponent(WrappedRowTest);
+      wrapper = fixture.componentInstance.wrapper;
+      fixture.detectChanges();
     });
 
-    it('should have a rowView', function (this: TestContext) {
-      expect(this.wrapper.rowView).toBeDefined();
+    it('should have a rowView', function () {
+      expect(wrapper.rowView).toBeDefined();
     });
 
-    it('should have a templateRef to the portal', function (this: TestContext) {
-      expect(this.wrapper.templateRef).toBeDefined();
+    it('should have a templateRef to the portal', function () {
+      expect(wrapper.templateRef).toBeDefined();
     });
 
-    it('should project content into the template', function (this: TestContext) {
-      expect(this.wrapper.rowView.rootNodes[0].textContent.trim()).toBe('Hello World!');
+    it('should project content into the template', function () {
+      expect(wrapper.rowView.rootNodes[0].textContent.trim()).toBe('Hello World!');
     });
   });
 }

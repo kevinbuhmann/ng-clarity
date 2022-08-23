@@ -19,8 +19,8 @@ export default function (): void {
     });
 
     it('provides a wrapped view for the content', function () {
-      this.directive = context.clarityDirective;
-      expect(this.directive._view).toBeDefined();
+      const directive = context.clarityDirective;
+      expect(directive._view).toBeDefined();
     });
 
     it('projects content', function () {

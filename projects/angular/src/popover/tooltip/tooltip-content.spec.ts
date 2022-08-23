@@ -39,10 +39,7 @@ class IdTest {
   idValue;
 }
 
-interface TooltipContext extends TestContext<ClrTooltipContent, SimpleTest> {
-  toggleService: ClrPopoverToggleService;
-  tooltipIdService: TooltipIdService;
-}
+type TooltipContext = TestContext<ClrTooltipContent, SimpleTest>;
 
 export default function (): void {
   describe('TooltipContent component', function () {
@@ -54,7 +51,6 @@ export default function (): void {
 
         beforeEach(function (this: TooltipContext) {
           this.getClarityProvider(ClrPopoverToggleService).open = true;
-          this.tooltipIdService = this.getClarityProvider(TooltipIdService);
           this.detectChanges();
         });
 
@@ -89,7 +85,6 @@ export default function (): void {
 
         beforeEach(function (this: TooltipContext) {
           this.getClarityProvider(ClrPopoverToggleService).open = true;
-          this.tooltipIdService = this.getClarityProvider(TooltipIdService);
           this.detectChanges();
         });
 
@@ -139,7 +134,6 @@ export default function (): void {
 
       beforeEach(function (this: TooltipContext) {
         this.getClarityProvider(ClrPopoverToggleService).open = true;
-        this.tooltipIdService = this.getClarityProvider(TooltipIdService);
         this.detectChanges();
       });
 
