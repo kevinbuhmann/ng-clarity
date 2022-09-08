@@ -34,10 +34,6 @@ export default function (): void {
       trigger = clarityElement.querySelector('.signpost-action');
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('should toggle the IfOpenService.open property on click', function () {
       expect(toggleService.open).toBeFalsy();
       trigger.click();

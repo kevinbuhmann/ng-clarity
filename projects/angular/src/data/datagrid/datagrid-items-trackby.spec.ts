@@ -33,10 +33,6 @@ export default function (): void {
       this.itemsProvider = TestBed.get(Items);
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('receives an input for the trackBy option', function () {
       expect(this.itemsProvider.trackBy).toBeUndefined();
       // eslint-disable-next-line

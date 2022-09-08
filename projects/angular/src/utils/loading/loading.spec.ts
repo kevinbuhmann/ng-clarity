@@ -23,10 +23,6 @@ describe('Loading directive', function () {
     this.listener = TestBed.get(LoadingListener);
   });
 
-  afterEach(function () {
-    this.fixture.destroy();
-  });
-
   it('notifies the listener when the [clrLoading] input changes', function () {
     expect(this.listener.loading).toBe(false);
     this.testComponent.loading = true;
@@ -82,10 +78,6 @@ describe('Loading directive without listener', function () {
     this.fixture.detectChanges();
     this.testComponent = this.fixture.componentInstance;
     this.clarityDirective = this.fixture.componentInstance.loadingDirective;
-  });
-
-  afterEach(function () {
-    this.fixture.destroy();
   });
 
   it('keeps loading state without exceptions', function () {

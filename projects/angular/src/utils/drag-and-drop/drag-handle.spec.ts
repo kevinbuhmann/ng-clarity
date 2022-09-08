@@ -39,10 +39,6 @@ export default function (): void {
         this.testElement = this.fixture.nativeElement;
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('should register its element as a custom drag handle', function () {
         const dragHandleEl = this.fixture.debugElement.query(By.directive(ClrDragHandle)).nativeElement;
         expect(this.dragHandleRegistrar.customHandle).toBe(dragHandleEl);

@@ -48,10 +48,6 @@ describe('Header', () => {
     compiled = fixture.nativeElement;
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('projects content', () => {
     expect(compiled.textContent).toMatch(/Title/);
     expect(compiled.textContent).toMatch(/Components/);

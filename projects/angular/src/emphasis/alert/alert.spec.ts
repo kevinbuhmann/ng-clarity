@@ -54,10 +54,6 @@ export default function (): void {
       compiled = fixture.nativeElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('projects content', () => {
       const newAlertMsg = 'OHAI';
       expect(compiled.textContent).toMatch(/This is an alert!/);

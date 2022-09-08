@@ -74,10 +74,6 @@ describe('Focus Trap Utilities: ', () => {
     noFocusElement = testElement.querySelector('.outside-focus');
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   describe('Functional Helper: ', () => {
     describe('addReboundElementsToFocusTrapElement()', () => {
       beforeEach(() => {
@@ -144,10 +140,6 @@ describe('Focus Trap Utilities: ', () => {
     describe('refocusIfOutsideFocusTrapElement()', () => {
       beforeEach(() => {
         fixture.componentInstance.focusTrapComponent.enableFocusTrap();
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('calls focus() if in current focus trap element', () => {
@@ -219,10 +211,6 @@ describe('FocusTrap Class: ', () => {
       focusTrap.enableFocusTrap();
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('set focus trap id', () => {
       expect(focusTrap.focusTrapElement.focusTrapId).toBeTruthy('needs to set focus trap id on plain html elements');
     });
@@ -285,10 +273,6 @@ describe('FocusTrap Class: ', () => {
       focusTrap = wrapperComponent.instance.focusTrapComponent;
       fixture.nativeElement.querySelector('button').focus();
       previousFocusedElement = document.activeElement as HTMLElement;
-    });
-
-    afterEach(() => {
-      fixture.destroy();
     });
 
     it('should remove rebound elements', () => {

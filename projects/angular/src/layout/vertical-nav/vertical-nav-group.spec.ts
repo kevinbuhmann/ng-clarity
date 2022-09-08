@@ -43,10 +43,6 @@ export default function (): void {
         vertNavService = TestBed.inject(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('provides a method which communicates with the Expand service to expand the nav group', () => {
         expect(navGroup.expanded).toBe(false);
 
@@ -127,10 +123,6 @@ export default function (): void {
         navGroup = fixture.componentInstance.navGroup;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it(
         'does not contains the links if the nav group is not in ' + 'expanded state when clrIfExpanded is used',
         () => {
@@ -162,10 +154,6 @@ export default function (): void {
         toggleBtn = compiled.querySelector('.nav-group-trigger');
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('defaults aria-label of nav group toggle button to common strings', () => {
         expect(toggleBtn.hasAttribute('aria-label')).toBe(true);
         expect(toggleBtn.getAttribute('aria-label')).toBe(navGroup.commonStrings.keys.verticalNavGroupToggle);
@@ -190,10 +178,6 @@ export default function (): void {
         compiled = fixture.nativeElement;
         navGroup = fixture.componentInstance.navGroup;
         expandService = fixture.debugElement.query(By.directive(ClrVerticalNavGroup)).injector.get(IfExpandService);
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('provides an input to set the expanded state of the nav group', async () => {
@@ -239,10 +223,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         navGroup = fixture.componentInstance.navGroup;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('toggles the expanded state when the .nav-group-trigger is clicked', () => {

@@ -48,10 +48,6 @@ export default function (): void {
         this.dragEventListener = TestBed.get(DragEventListenerService);
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('should have draggable-ghost class', function () {
         expect(this.ghostElement.classList.contains('draggable-ghost')).toBeTruthy();
       });
@@ -110,10 +106,6 @@ export default function (): void {
         this.draggableGhostDebugElement = this.fixture.debugElement.query(By.directive(ClrDraggableGhost));
         this.ghostElement = this.draggableGhostDebugElement.nativeElement;
         this.dragEventListener = TestBed.get(DragEventListenerService);
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       it('should appear on the first drag move event', function () {

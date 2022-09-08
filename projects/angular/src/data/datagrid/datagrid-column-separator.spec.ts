@@ -65,7 +65,6 @@ export default function (): void {
     });
 
     afterEach(function () {
-      fixture.destroy();
       const popoverContent = document.querySelectorAll('.clr-popover-content');
       popoverContent.forEach(content => document.body.removeChild(content));
     });

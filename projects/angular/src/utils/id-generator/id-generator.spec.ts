@@ -52,6 +52,5 @@ describe('ID Generator Service', function () {
       // Expect to have two unmatched elements (b/c we have three in UniqueIdTest template)
       expect(unmatched.length).toBe(2);
     }
-    fixture.destroy();
   });
 });

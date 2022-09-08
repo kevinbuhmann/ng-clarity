@@ -85,10 +85,6 @@ describe('Host wrapping', function () {
       setupTest(this, ExplicitTest);
     });
 
-    afterEach(function (this: TestContext<ExplicitTest>) {
-      this.fixture.destroy();
-    });
-
     it('renders one wrapper and one child', function (this: TestContext<ExplicitTest>) {
       expect(this.fixture.nativeElement.textContent.trim()).toBe('Hello World!');
     });
@@ -112,10 +108,6 @@ describe('Host wrapping', function () {
       setupTest(this, WrappingTest);
     });
 
-    afterEach(function (this: TestContext<WrappingTest>) {
-      this.fixture.destroy();
-    });
-
     it('creates a wrapper and projects the host into it', function (this: TestContext<WrappingTest>) {
       expect(this.fixture.nativeElement.textContent.trim()).toBe('Hello World!');
     });
@@ -137,10 +129,6 @@ describe('Host wrapping', function () {
   describe('with *ngIf', function () {
     beforeEach(function (this: TestContext<NgIfTest>) {
       setupTest(this, NgIfTest);
-    });
-
-    afterEach(function (this: TestContext<NgIfTest>) {
-      this.fixture.destroy();
     });
 
     it('correctly destroys and recreates everything', function (this: TestContext<NgIfTest>) {

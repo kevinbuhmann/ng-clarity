@@ -66,10 +66,6 @@ export default function (): void {
         this.itemsProvider = TestBed.get(Items);
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('makes the Items provider smart', function () {
         expect(this.itemsProvider.smart).toBe(true);
       });
@@ -116,10 +112,6 @@ export default function (): void {
         this.testComponent = this.fixture.componentInstance;
         this.clarityDirective = this.fixture.componentInstance.datagridItems;
         this.itemsProvider = TestBed.get(Items);
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       it('keeps the Items provider up to date with array changes', function () {

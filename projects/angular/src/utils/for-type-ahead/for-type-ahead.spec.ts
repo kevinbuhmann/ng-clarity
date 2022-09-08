@@ -38,10 +38,6 @@ describe('ClrForTypeAhead', () => {
     forTypeAheadProvider = forTypeAheadDirectiveDE.injector.get(ForTypeAheadProvider);
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('can use textContent of element if nothing gets passed to clrForTypeAhead input', () => {
     fixture.detectChanges();
     expect(forTypeAheadProvider.textContent).toBe('world');

@@ -45,10 +45,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('hides the .nav-trigger when the nav is not collapsible', () => {
         expect(vertNavService.collapsible).toBe(false);
 
@@ -133,10 +129,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('shows the .nav-links when the nav is expanded', () => {
         expect(compiled.querySelector('.nav-link')).not.toBeNull();
       });
@@ -165,10 +157,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('shows the .nav-links & icons when the nav is expanded', () => {
         expect(compiled.querySelector('.nav-link')).not.toBeNull();
         expect(compiled.querySelector('cds-icon')).not.toBeNull();
@@ -194,10 +182,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('does not show .nav-group when nav is collapsed', () => {
         vertNavService.collapsible = true;
         vertNavService.collapsed = true;
@@ -220,10 +204,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('shows the .nav-groups when the nav is expanded', () => {
@@ -262,10 +242,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('shows the .nav-links when the nav is expanded', () => {
@@ -324,10 +300,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('adds the .is-collapsed class when the nav is collapsed', () => {
@@ -406,10 +378,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('supports a toggle method which toggles the collapsed state in a collapsible nav', () => {
         vertNavService.collapsible = true;
         fixture.componentInstance.nav.toggleByButton();
@@ -478,10 +446,6 @@ export default function (): void {
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('supports an input to enable the collapsible behavior of the nav', () => {
         expect(vertNavService.collapsible).toBe(false);
 
@@ -544,10 +508,6 @@ export default function (): void {
         compiled = fixture.nativeElement;
         vertNavService = fixture.debugElement.query(By.directive(ClrVerticalNav)).injector.get(VerticalNavService);
         commonStrings = new ClrCommonStringsService();
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('expect buttons to have correct aria-label from ClrCommonStringsService', () => {

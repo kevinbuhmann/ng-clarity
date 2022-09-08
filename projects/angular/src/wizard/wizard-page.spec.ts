@@ -267,10 +267,6 @@ export default function (): void {
         fourthPage = myTestComponent.pages.toArray()[3];
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('should not auto-assign an id of zero', () => {
         const myId = firstPage.id;
 
@@ -371,10 +367,6 @@ export default function (): void {
         navService = fixture.debugElement.injector.get(WizardNavigationService);
         testWizardPage = testComponent.wizardPageChildren.toArray()[0];
         otherWizardPage = testComponent.wizardPageChildren.toArray()[1];
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       describe('id', () => {
@@ -662,10 +654,6 @@ export default function (): void {
         otherWizardPage = templateTestComponent.otherTemplateTester;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       describe('nextStepDisabled input/output/binding', () => {
         it('should allow for setting input through component', () => {
           let nextDisabledVal = templateTestComponent.navTestNextDisabled;
@@ -941,10 +929,6 @@ export default function (): void {
               break;
           }
         });
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       describe('content', () => {

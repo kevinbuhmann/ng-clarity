@@ -27,10 +27,6 @@ describe('Loading Buttons', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('displays spinner when [(clrButtonState)] value is LOADING', () => {
     fixture.componentInstance.buttonState = ClrLoadingState.LOADING;
     fixture.detectChanges();

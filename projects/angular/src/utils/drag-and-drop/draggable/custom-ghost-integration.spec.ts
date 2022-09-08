@@ -50,10 +50,6 @@ export default function (): void {
       this.fixture.detectChanges();
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('should project custom ghost on drag start', function () {
       this.dragEventListener.dragStarted.next(mockDragStartEventInt);
       const draggableGhosts = this.fixture.nativeElement.querySelectorAll('clr-draggable-ghost');

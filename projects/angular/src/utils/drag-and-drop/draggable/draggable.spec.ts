@@ -64,10 +64,6 @@ export default function (): void {
       this.fixture.detectChanges();
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('should have draggable class', function () {
       expect(this.draggable.nativeElement.classList.contains('draggable')).toBeTruthy();
     });

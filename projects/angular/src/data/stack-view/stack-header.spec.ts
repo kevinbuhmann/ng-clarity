@@ -37,10 +37,6 @@ export default function (): void {
       compiled = fixture.nativeElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     /**
      * There are basically no tests at the moment because the StackHeader component itself
      * doesn't do anything apart from projecting content.

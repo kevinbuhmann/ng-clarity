@@ -36,10 +36,6 @@ export default function (): void {
       compiled = fixture.nativeElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('adds clr-input classes', () => {
       expect(compiled.querySelector('input').className).toEqual('clr-input');
     });

@@ -63,10 +63,6 @@ describe('MainContainer', () => {
     compiled = fixture.nativeElement;
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('projects content', () => {
     expect(compiled.textContent).toMatch(/Test/);
   });

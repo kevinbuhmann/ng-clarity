@@ -23,10 +23,6 @@ export default function (): void {
         this.toggleService = TestBed.get(ClrPopoverToggleService);
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('sets the open state of the directive', function () {
         this.testComponent.openState = true;
         this.fixture.detectChanges();
@@ -76,10 +72,6 @@ export default function (): void {
         this.testElement = this.fixture.nativeElement;
         this.clarityDirective = this.fixture.componentInstance.directive;
         this.toggleService = TestBed.get(ClrPopoverToggleService);
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       // More for view tests.

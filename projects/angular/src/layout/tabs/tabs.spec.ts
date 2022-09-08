@@ -174,10 +174,6 @@ describe('Tabs', () => {
       compiled = context.fixture.nativeElement;
     });
 
-    afterEach(() => {
-      context.fixture.destroy();
-    });
-
     it('sets the role to tab on overflow button', () => {
       expect(compiled.querySelector('button.nav-link').getAttribute('role')).toEqual('tab');
     });
@@ -268,10 +264,6 @@ describe('Tabs', () => {
       context.fixture.detectChanges();
     });
 
-    afterEach(() => {
-      context.fixture.destroy();
-    });
-
     it('reset keyFocus current to active tab index', () => {
       const activeTabIndex = 1;
       tabLinkDEs[activeTabIndex].injector.get(ClrTabLink).activate();
@@ -344,10 +336,6 @@ describe('Tabs', () => {
       context = this.create(ClrTabs, NestedTabsTest);
       context.fixture.detectChanges();
       compiled = context.fixture.nativeElement;
-    });
-
-    afterEach(() => {
-      context.fixture.destroy();
     });
 
     it("shouldn't project nested tab links in parent tabs", () => {
@@ -423,10 +411,6 @@ describe('Tabs', () => {
       contents = compiled.querySelectorAll('section');
     });
 
-    afterEach(() => {
-      context.fixture.destroy();
-    });
-
     it('projects all the links and all the contents', () => {
       expect(compiled.querySelectorAll('button.nav-link').length).toEqual(2);
       expect(compiled.querySelectorAll('section').length).toEqual(2);
@@ -449,10 +433,6 @@ describe('Tabs', () => {
       context = this.create(ClrTabs, ScalingTestComponent);
       component = context.testComponent;
       context.fixture.detectChanges();
-    });
-
-    afterEach(() => {
-      context.fixture.destroy();
     });
 
     it('should scale to tabs parent height', () => {

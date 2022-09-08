@@ -62,7 +62,6 @@ export default function (): void {
     });
 
     afterEach(() => {
-      fixture.destroy();
       mockPages = resetMockPages();
     });
 

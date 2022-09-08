@@ -73,10 +73,6 @@ export default function (): void {
         this.clarityDirective = this.testComponent.optionItems;
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('can handle changes', function () {
         const initialContent = this.fixture.elementRef.nativeElement.textContent;
         expect(initialContent.trim()).toEqual('0123');
@@ -141,10 +137,6 @@ export default function (): void {
         this.clarityDirective = this.fixture.componentInstance.optionItems;
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('receives an input for the trackBy option', function () {
         expect(this.clarityDirective.iterableProxy.ngForTrackBy).toBe(this.testComponent.trackBy);
       });
@@ -182,10 +174,6 @@ export default function (): void {
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.clarityDirective = this.fixture.componentInstance.optionItems;
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       it('generates content', function () {

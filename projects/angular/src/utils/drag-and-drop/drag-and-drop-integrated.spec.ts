@@ -41,10 +41,6 @@ export default function (): void {
       fixture.detectChanges();
     });
 
-    afterEach(function () {
-      fixture.destroy();
-    });
-
     describe('Template API', function () {
       const checkStaticProps = function (dragEvent: any) {
         // the following properties don't change accross different drag events

@@ -46,10 +46,6 @@ export default function (): void {
       context.detectChanges();
     });
 
-    afterEach(function () {
-      context.fixture.destroy();
-    });
-
     it('sets the columnState', function () {
       cells = context.fixture.debugElement.queryAll(By.directive(DatagridCellRenderer));
       expect(cells.length).toEqual(2);

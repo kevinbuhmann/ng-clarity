@@ -37,10 +37,6 @@ export default function (): void {
         this.testElement = this.fixture.nativeElement;
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('should not display anything on normal state', function () {
         expect(this.testElement.textContent.trim()).toBe('');
       });

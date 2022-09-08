@@ -229,7 +229,6 @@ describe('Modal', () => {
 
     backdrop.click();
     flushAndExpectOpen(defaultsFixture, true);
-    defaultsFixture.destroy();
   }));
 
   it('supports a clrModalStaticBackdrop option', fakeAsync(() => {

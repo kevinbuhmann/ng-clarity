@@ -37,10 +37,6 @@ export default function (): void {
       datagridRenderOrganizer = fixture.debugElement.injector.get(DatagridRenderOrganizer);
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('provides the minimum column width', function () {
       expect(columnResizerService.minColumnWidth).toBe(96);
       columnHostEl.style.minWidth = '123px';

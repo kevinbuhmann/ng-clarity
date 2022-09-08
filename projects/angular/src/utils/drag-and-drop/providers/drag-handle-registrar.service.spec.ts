@@ -33,10 +33,6 @@ export default function (): void {
       dragEventListener = fixture.debugElement.injector.get(DragEventListenerService);
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('registers element as default handle on assignment', function () {
       dragHandleRegistrar.defaultHandleEl = draggableEl;
       expect(dragEventListener.draggableEl).toBe(draggableEl);

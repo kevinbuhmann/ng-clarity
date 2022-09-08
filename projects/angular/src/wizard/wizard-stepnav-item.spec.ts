@@ -71,7 +71,6 @@ export default function (): void {
 
     afterEach(() => {
       fakeOutPage.reset();
-      fixture.destroy();
     });
 
     describe('Typescript API', () => {

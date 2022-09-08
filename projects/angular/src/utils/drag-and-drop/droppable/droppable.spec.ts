@@ -58,10 +58,6 @@ export default function (): void {
       this.fixture.detectChanges();
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('should have droppable class', function () {
       expect(this.droppable.nativeElement.classList.contains('droppable')).toBeTruthy();
     });
@@ -224,10 +220,6 @@ export default function (): void {
       this.fixture.detectChanges();
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('should match if droppable without group keys registers dragStart event that has no  group keys', function () {
       this.eventBus.broadcast(mockDragStartEventInt);
       this.fixture.detectChanges();
@@ -383,10 +375,6 @@ export default function (): void {
           }.bind(this),
         };
       };
-    });
-
-    afterEach(function () {
-      this.fixture.destroy();
     });
 
     it('can register dragEnter only if dropPointPosition is over dropppable when drop tolerance is not defined', function () {

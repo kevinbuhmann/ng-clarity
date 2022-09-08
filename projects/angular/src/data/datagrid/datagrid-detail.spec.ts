@@ -23,10 +23,6 @@ export default function (): void {
         context.detectChanges();
       });
 
-      afterEach(function () {
-        context.fixture.destroy();
-      });
-
       it('should wire up host bindings', () => {
         expect(context.clarityElement.className).toContain('datagrid-detail-pane');
       });

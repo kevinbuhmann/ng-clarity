@@ -51,10 +51,6 @@ describe('AriaCurrentLink Directive', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('decorates the active link with aria-current', fakeAsync(() => {
     router.navigate(['/home']);
     tick();

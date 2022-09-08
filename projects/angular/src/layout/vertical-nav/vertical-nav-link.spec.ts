@@ -37,10 +37,6 @@ export default function (): void {
         compiled = fixture.nativeElement;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('adds the .nav-link class on the links', () => {
         const navLinks = compiled.querySelectorAll('a');
 

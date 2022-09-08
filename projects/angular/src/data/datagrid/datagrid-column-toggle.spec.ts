@@ -59,7 +59,6 @@ export default function (): void {
     });
 
     afterEach(function () {
-      context.fixture.destroy();
       // TODO(matt): figure out why its not getting removed from the dom when fixture is destroyed
       document.querySelectorAll('.clr-popover-content').forEach(function (item) {
         item.remove();

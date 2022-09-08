@@ -100,10 +100,6 @@ export default function (): void {
       });
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     function getBlockInstance(bFixture: ComponentFixture<any>): ClrStackBlock {
       return bFixture.componentInstance.blockInstance;
     }

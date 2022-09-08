@@ -31,10 +31,6 @@ export default function (): void {
         this.expand = TestBed.get(IfExpandService);
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it("doesn't display anything by default", function () {
         expect(this.testElement.textContent.trim()).toBe('');
       });
@@ -81,10 +77,6 @@ export default function (): void {
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.expand = TestBed.get(IfExpandService);
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       it('sets the parent as expandable', function () {

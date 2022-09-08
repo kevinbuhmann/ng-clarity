@@ -23,10 +23,6 @@ describe('Chocolate factory', function () {
       this.testComponent = this.fixture.componentInstance;
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('handles chocolate', function () {
       this.testComponent.children.push(0);
       expect(() => this.fixture.detectChanges()).not.toThrow();

@@ -68,10 +68,6 @@ export default function (): void {
       debugEl = fixture.debugElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     describe('Typescript API', () => {
       describe('id', () => {
         it('should return an indexed id if none is specified', () => {

@@ -71,12 +71,6 @@ export default function () {
         };
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-        this.alertFixture.destroy();
-        this.secondAlertFixture.destroy();
-      });
-
       it('offers two way binding on the alert index', function () {
         this.create(TestIndex);
         this.fixture.componentInstance.index = 1;

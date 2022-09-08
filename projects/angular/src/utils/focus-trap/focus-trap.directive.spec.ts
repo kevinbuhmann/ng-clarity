@@ -43,10 +43,6 @@ describe('FocusTrap', () => {
       directiveInstance = directiveDebugElement.injector.get(FocusTrapDirective);
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('should create directive', () => {
       expect(directiveInstance).toBeTruthy();
     });
@@ -185,10 +181,6 @@ describe('FocusTrap', () => {
       compiled = fixture.nativeElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('should have an activeElement that defaults to the body', () => {
       expect(document.body as Element).toBe(document.activeElement);
     });
@@ -243,10 +235,6 @@ describe('FocusTrap', () => {
       bottomRebounder = rebounders.item(1) as HTMLElement;
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     it('should trap focus locally', () => {
       // We can't test tab focus movement for security reasons, so will test by manually moving focus as if tab was pressed
       // First tab press
@@ -293,10 +281,6 @@ describe('FocusTrap', () => {
       outsideFocusEl = fixture.nativeElement.querySelector('#input');
       focusTrapEl = fixture.nativeElement.querySelector('#focus-trap');
       onlyFocusable = fixture.nativeElement.querySelector('#only-focusable');
-    });
-
-    afterEach(() => {
-      fixture.destroy();
     });
 
     it('should find and focus right focusable element if focus goes to top rebound', () => {

@@ -31,10 +31,6 @@ export default function (): void {
       fixture.detectChanges();
     });
 
-    afterEach(() => {
-      fixture.destroy();
-    });
-
     describe('Typescript API', () => {
       it('should initialize the detail service', () => {
         expect(detailService.close).toHaveBeenCalled();

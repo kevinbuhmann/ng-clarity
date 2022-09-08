@@ -27,10 +27,6 @@ export default function (): void {
       this.fixture.detectChanges();
     });
 
-    afterEach(function () {
-      this.fixture.destroy();
-    });
-
     it('should have its nested handle as drag handle if it is present', function () {
       this.dragHandle = this.fixture.debugElement.query(By.directive(ClrDragHandle));
       expect(this.draggable.nativeElement.classList.contains('drag-handle')).toBeFalsy();

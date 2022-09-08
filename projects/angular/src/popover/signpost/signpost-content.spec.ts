@@ -30,10 +30,6 @@ export default function (): void {
       );
     });
 
-    afterEach(() => {
-      context.fixture.destroy();
-    });
-
     it('has an id', () => {
       expect(context.clarityElement.getAttribute('id')).toBeDefined();
     });

@@ -121,10 +121,6 @@ export default function (): void {
         buttonComponent = buttonDebugEl.componentInstance;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       describe('isCancel', () => {
         it('returns true for button type cancel', () => {
           buttonComponent.type = DEFAULT_BUTTON_TYPES.cancel;
@@ -821,10 +817,6 @@ export default function (): void {
         myTestComponent = fixture.componentInstance;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       describe('type input', () => {
         it('should reflect initted type', () => {
           // button is initted with no type
@@ -994,10 +986,6 @@ export default function (): void {
         buttonElement = buttonDebugEl.nativeElement;
         actualButton = buttonElement.querySelector('button');
         myTestComponent = fixture.componentInstance;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       describe('Button types render as expected', () => {

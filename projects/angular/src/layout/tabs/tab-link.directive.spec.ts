@@ -48,10 +48,6 @@ describe('TabLink Directive', () => {
     instance = fixture.componentInstance;
   });
 
-  afterEach(() => {
-    fixture.destroy();
-  });
-
   it('has the correct css classes', () => {
     expect(compiled.querySelector('.btn-link')).toBeDefined();
     expect(compiled.querySelector('.nav-link')).toBeDefined();

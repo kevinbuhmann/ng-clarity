@@ -77,10 +77,6 @@ export default function (): void {
         componentInstance = debugEl.componentInstance;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('adds a .btn class to the button when a class is not provided', () => {
         expect(componentInstance.button1.classNames).toBe('btn');
       });
@@ -209,10 +205,6 @@ export default function (): void {
         debugEl = fixture.debugElement;
         componentInstance = debugEl.componentInstance;
         buttons = debugEl.nativeElement.querySelectorAll('button');
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('projects the content correctly', () => {

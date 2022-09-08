@@ -53,10 +53,6 @@ export default function () {
         };
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('offers two way binding on the alert index', function () {
         this.create(TestComponent);
         const testComponent = fixture.componentInstance;
@@ -136,10 +132,6 @@ export default function () {
         compiled = fixture.nativeElement;
         alertElements = compiled.querySelectorAll('.alert');
         expect(alertElements.length).toEqual(2);
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('projects content based on clrCurrentAlertIndex', function () {

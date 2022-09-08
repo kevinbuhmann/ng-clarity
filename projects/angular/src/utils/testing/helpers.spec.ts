@@ -117,13 +117,6 @@ export function spec<C, H>(
       this.init();
     }
   });
-
-  afterEach(function (this: TestContext<C, H>) {
-    if (this.fixture) {
-      this.fixture.destroy();
-      this.fixture.nativeElement.remove();
-    }
-  });
 }
 
 /**
@@ -149,12 +142,6 @@ export function addHelpersDeprecated(
       this._context.init();
       return this._context;
     };
-  });
-
-  afterEach(function () {
-    if (this._context) {
-      this._context.fixture.destroy();
-    }
   });
 }
 

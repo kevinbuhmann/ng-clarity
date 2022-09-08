@@ -39,10 +39,6 @@ export default function (): void {
         testBtnGroup = fixture.componentInstance.btnGroup;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('renders all the inline buttons', () => {
         expect(compiled.textContent).toMatch(/Button 1/);
         expect(compiled.textContent).toMatch(/Button 2/);
@@ -75,10 +71,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         testBtnGroup = fixture.componentInstance.btnGroup;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('renders the inline buttons', () => {
@@ -134,10 +126,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         testBtnGroup = fixture.componentInstance.btnGroup;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('renders all the inline buttons', () => {
@@ -240,10 +228,6 @@ export default function (): void {
         testBtnGroup = fixture.componentInstance.btnGroup;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('projects the inline buttons projected by the user', () => {
         expect(compiled.textContent).toMatch(/Button 1/);
         expect(compiled.textContent).toMatch(/Button 2/);
@@ -295,10 +279,6 @@ export default function (): void {
         fixture.detectChanges();
         compiled = fixture.nativeElement;
         testBtnGroup = fixture.componentInstance.btnGroup;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('initializes the buttons correctly', () => {
@@ -364,10 +344,6 @@ export default function (): void {
         testBtnGroup = fixture.componentInstance.btnGroup;
       });
 
-      afterEach(() => {
-        fixture.destroy();
-      });
-
       it('does not render any buttons initially', () => {
         expect(compiled.textContent).not.toMatch(/Button 1/);
         expect(compiled.textContent).not.toMatch(/Button 2/);
@@ -410,10 +386,6 @@ export default function (): void {
         fixture = TestBed.createComponent(BtnGroupEHCAIWCTest);
         fixture.detectChanges();
         compiled = fixture.nativeElement;
-      });
-
-      afterEach(() => {
-        fixture.destroy();
       });
 
       it('renders only the views created in the dropdown menu', () => {

@@ -26,10 +26,6 @@ export default function (): void {
         this.ifActiveService = TestBed.get(IfActiveService);
       });
 
-      afterEach(function () {
-        this.fixture.destroy();
-      });
-
       it('sets the active state of the directive', function () {
         this.testComponent.activeState = true;
         this.fixture.detectChanges();
@@ -101,10 +97,6 @@ export default function (): void {
         this.testElement = this.fixture.nativeElement;
         this.clarityDirective = this.fixture.componentInstance.directive;
         this.ifActiveService = TestBed.get(IfActiveService);
-      });
-
-      afterEach(function () {
-        this.fixture.destroy();
       });
 
       // More for view tests.

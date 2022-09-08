@@ -27,14 +27,10 @@ export default function (): void {
 
     it('registers itself on the service', () => {
       expect(verticalNavIconService.hasIcons).toBe(true);
-
-      fixture.destroy();
     });
 
     it('adds a nav-icon class to the host', () => {
       expect(fixture.debugElement.componentInstance.navIcon.nativeElement.classList.contains('nav-icon')).toBeTruthy();
-
-      fixture.destroy();
     });
 
     it('unregisters the icon when the fixture is destroyed', () => {
