@@ -58,13 +58,6 @@ export default function (): void {
       columnsService.mockColumns(3);
     });
 
-    afterEach(function () {
-      // TODO(matt): figure out why its not getting removed from the dom when fixture is destroyed
-      document.querySelectorAll('.clr-popover-content').forEach(function (item) {
-        item.remove();
-      });
-    });
-
     describe('Typescript API', function () {
       it('toggles switch panel', fakeAsync(function () {
         // TODO(matt): update for the new ClrPopover toggle service here

@@ -38,11 +38,6 @@ export default function (): void {
         comparator = new TestComparator();
       });
 
-      afterEach(() => {
-        const popoverContent = document.querySelectorAll('.clr-popover-content');
-        popoverContent.forEach(content => content.remove());
-      });
-
       it('receives a comparator to sort the column', function () {
         expect(component.sortable).toBe(false);
         component.sortBy = comparator;

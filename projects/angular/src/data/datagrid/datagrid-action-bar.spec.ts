@@ -22,11 +22,6 @@ export default function (): void {
       context = this.create(ClrDatagridActionBar, SimpleTest, [Selection, Items, FiltersProvider, Sort, Page]);
     });
 
-    afterEach(() => {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
-    });
-
     it('projects content', function () {
       expect(context.clarityElement.textContent.trim()).toMatch('Hello world');
     });

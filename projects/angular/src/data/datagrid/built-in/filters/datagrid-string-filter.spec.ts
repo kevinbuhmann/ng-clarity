@@ -63,11 +63,6 @@ export default function (): void {
       filtersInstance = TestBed.get(FiltersProvider);
     });
 
-    afterEach(function () {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
-    });
-
     it('receives an input for the filter value', function () {
       context.testComponent.filterValue = 'M';
       context.detectChanges();

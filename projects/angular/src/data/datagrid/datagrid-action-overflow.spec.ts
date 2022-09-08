@@ -21,11 +21,6 @@ export default function (): void {
       toggle = context.clarityElement.querySelector('.clr-smart-open-close');
     });
 
-    afterEach(function () {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
-    });
-
     it('offers two-way binding on clrDgActionOverflowOpen', function () {
       context.clarityDirective.open = true;
       context.detectChanges();

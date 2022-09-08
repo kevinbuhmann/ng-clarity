@@ -20,11 +20,6 @@ export default function (): void {
         context = this.create(ClrDatagridFooter, SimpleTest, DATAGRID_SPEC_PROVIDERS);
       });
 
-      afterEach(function () {
-        const popoverContent = document.querySelectorAll('.clr-popover-content');
-        popoverContent.forEach(content => content.remove());
-      });
-
       it('projects content', function () {
         expect(context.clarityElement.textContent.trim()).toMatch('Hello world');
       });

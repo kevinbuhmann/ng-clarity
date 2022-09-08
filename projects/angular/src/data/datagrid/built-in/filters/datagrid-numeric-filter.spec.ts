@@ -35,11 +35,6 @@ export default function (): void {
       context = this.create(DatagridNumericFilter, AccessibilityTest, PROVIDERS);
     });
 
-    afterEach(function () {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
-    });
-
     it('should be able to change the min placeholder text', fakeAsync(function () {
       context.testComponent.filterValue = [null, 10];
       context.testComponent.clrFilterMinPlaceholder = 'min demo placeholder';
@@ -78,11 +73,6 @@ export default function (): void {
       filter = new TestFilter();
       context = this.create(DatagridNumericFilter, FullTest, PROVIDERS);
       filtersInstance = TestBed.get(FiltersProvider);
-    });
-
-    afterEach(function () {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
     });
 
     it('receives an input for the filter value', function () {

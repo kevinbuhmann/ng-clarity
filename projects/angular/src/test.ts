@@ -24,6 +24,10 @@ declare const require: {
   };
 };
 
+afterEach(() => {
+  cleanPopoverDOM();
+});
+
 // First, initialize the Angular testing environment.
 getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
   teardown: { destroyAfterEach: false },
@@ -32,3 +36,9 @@ getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDyn
 const context = require.context('./', true, /\.spec\.ts$/);
 // And load the modules.
 context.keys().map(context);
+
+function cleanPopoverDOM() {
+  const popovers = document.querySelectorAll('.clr-popover-content');
+
+  popovers.forEach(popover => popover.remove());
+}

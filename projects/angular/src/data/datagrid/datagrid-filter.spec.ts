@@ -19,11 +19,6 @@ import { FiltersProvider } from './providers/filters';
 import { Page } from './providers/page';
 import { StateDebouncer } from './providers/state-debouncer.provider';
 
-function cleanPopoverDOM() {
-  const popoverContent = document.querySelectorAll('.clr-popover-content');
-  popoverContent.forEach(content => content.remove());
-}
-
 export default function (): void {
   describe('ClrDatagridFilter component', function () {
     describe('Typescript API', function () {
@@ -47,7 +42,6 @@ export default function (): void {
       });
 
       afterEach(function () {
-        cleanPopoverDOM();
         component.ngOnDestroy();
       });
 
@@ -127,7 +121,6 @@ export default function (): void {
       });
 
       afterEach(function () {
-        cleanPopoverDOM();
         context.clarityDirective.ngOnDestroy();
       });
 

@@ -64,11 +64,6 @@ export default function (): void {
       draggableDirective = draggableDebugElement.injector.get(ClrDraggable);
     });
 
-    afterEach(function () {
-      const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => content.remove());
-    });
-
     it('has aria-label and aria-describedby attributes on its resize handle button', function () {
       expect(draggableDebugElement.nativeElement.hasAttribute('aria-label')).toEqual(true);
       expect(draggableDebugElement.nativeElement.hasAttribute('aria-describedby')).toEqual(true);

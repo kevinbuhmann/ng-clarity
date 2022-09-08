@@ -108,7 +108,11 @@ export class ClrPopoverContent implements AfterContentChecked, OnDestroy {
       this.removeClickListenerFn();
       this.removeClickListenerFn = null;
     }
-    this.view.rootNodes.forEach(node => this.renderer.removeChild(this.document.body, node));
+    this.view.rootNodes.forEach(node => {
+      if (this.document.body.contains(node)) {
+        this.renderer.removeChild(this.document.body, node);
+      }
+    });
     this.container.clear();
     delete this.view;
   }
