@@ -19,10 +19,9 @@ import { FiltersProvider } from './providers/filters';
 import { Page } from './providers/page';
 import { StateDebouncer } from './providers/state-debouncer.provider';
 
-function cleanPopoverDOM(component: ClrDatagridFilter) {
+function cleanPopoverDOM() {
   const popoverContent = document.querySelectorAll('.clr-popover-content');
   popoverContent.forEach(content => content.remove());
-  component.ngOnDestroy();
 }
 
 export default function (): void {
@@ -48,7 +47,8 @@ export default function (): void {
       });
 
       afterEach(function () {
-        cleanPopoverDOM(component);
+        cleanPopoverDOM();
+        component.ngOnDestroy();
       });
 
       it('registers to the FiltersProvider provider', function () {
@@ -127,7 +127,8 @@ export default function (): void {
       });
 
       afterEach(function () {
-        cleanPopoverDOM(context.clarityDirective);
+        cleanPopoverDOM();
+        context.clarityDirective.ngOnDestroy();
       });
 
       it('correctly associates the popover content with the aria-controls value', function () {
