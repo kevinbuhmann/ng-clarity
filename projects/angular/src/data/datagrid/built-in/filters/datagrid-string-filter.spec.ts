@@ -65,7 +65,7 @@ export default function (): void {
 
     afterEach(function () {
       const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => document.body.removeChild(content));
+      popoverContent.forEach(content => content.remove());
     });
 
     it('receives an input for the filter value', function () {

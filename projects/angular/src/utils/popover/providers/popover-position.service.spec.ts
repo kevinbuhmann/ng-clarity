@@ -80,7 +80,7 @@ export default function (): void {
         });
 
         afterEach(function (this: TestContext) {
-          document.body.removeChild(popoverContent);
+          popoverContent.remove();
         });
 
         it('and aligns content when visibility is 🆗', function (this: TestContext) {

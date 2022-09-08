@@ -24,7 +24,7 @@ export default function (): void {
     });
 
     afterEach(function (this: UserContext) {
-      document.body.removeChild(this.element);
+      this.element.remove();
     });
 
     it('computes the scrollwidth of an element', function (this: UserContext) {
@@ -89,7 +89,7 @@ export default function (): void {
         document.body.appendChild(style);
         this.element.classList.add('my-test');
         expect(this.domAdapter.userDefinedWidth(this.element)).toBe(42);
-        document.body.removeChild(style);
+        style.remove();
       });
 
       it('ignores padding and border', function (this: UserContext) {

@@ -186,7 +186,7 @@ describe('Abstract Popover', function () {
       expect(toggleService.open).toBe(true);
 
       // must cleanup elements that are manually added to document body
-      document.body.removeChild(btn);
+      btn.remove();
     });
   });
 });

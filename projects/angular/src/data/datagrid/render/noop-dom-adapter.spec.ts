@@ -44,7 +44,7 @@ export default function (): void {
         document.body.appendChild(style);
         this.element.classList.add('my-test');
         expect(this.domAdapter.userDefinedWidth(this.element)).toBe(0);
-        document.body.removeChild(style);
+        style.remove();
       });
 
       it('ignores padding and border', () => {

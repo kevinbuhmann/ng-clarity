@@ -21,7 +21,7 @@ import { StateDebouncer } from './providers/state-debouncer.provider';
 
 function cleanPopoverDOM(component: ClrDatagridFilter) {
   const popoverContent = document.querySelectorAll('.clr-popover-content');
-  popoverContent.forEach(content => document.body.removeChild(content));
+  popoverContent.forEach(content => content.remove());
   component.ngOnDestroy();
 }
 

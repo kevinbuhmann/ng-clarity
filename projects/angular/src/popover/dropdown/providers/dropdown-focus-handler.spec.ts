@@ -63,9 +63,9 @@ export default function (): void {
       });
 
       afterEach(function (this: TestContext) {
-        document.body.removeChild(this.trigger);
-        document.body.removeChild(this.container);
-        document.body.removeChild(this.outside);
+        this.trigger.remove();
+        this.container.remove();
+        this.outside.remove();
       });
 
       it('declares a UNIQUE_ID provider', function (this: TestContext) {
@@ -255,8 +255,8 @@ export default function (): void {
       });
 
       afterEach(function (this: TestContext) {
-        document.body.removeChild(this.trigger);
-        document.body.removeChild(this.container);
+        this.trigger.remove();
+        this.container.remove();
       });
 
       it('calls native elements focus() and blur when focused and blurred', function (this: TestContext) {

@@ -23,7 +23,7 @@ export default function (): void {
 
     afterEach(function () {
       const popoverContent = document.querySelectorAll('.clr-popover-content');
-      popoverContent.forEach(content => document.body.removeChild(content));
+      popoverContent.forEach(content => content.remove());
     });
 
     it('offers two-way binding on clrDgActionOverflowOpen', function () {

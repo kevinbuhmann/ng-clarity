@@ -39,7 +39,7 @@ export default function (): void {
       provider.close();
       expect(document.activeElement).toEqual(button);
       expect(button.focus).toHaveBeenCalled();
-      document.body.removeChild(button);
+      button.remove();
     });
 
     it('exposes a stageChange observable that responds to open and close', () => {

@@ -40,7 +40,7 @@ export default function (): void {
 
       afterEach(() => {
         const popoverContent = document.querySelectorAll('.clr-popover-content');
-        popoverContent.forEach(content => document.body.removeChild(content));
+        popoverContent.forEach(content => content.remove());
       });
 
       it('receives a comparator to sort the column', function () {
