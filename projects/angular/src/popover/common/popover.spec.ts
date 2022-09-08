@@ -202,18 +202,6 @@ describe('Popover', function () {
   });
 
   afterEach(() => {
-    // Polyfill for IE11 `.remove()`
-    (function () {
-      function remove() {
-        if (this.parentNode) {
-          this.parentNode.removeChild(this);
-        }
-      }
-      if (!Element.prototype.remove) {
-        Element.prototype.remove = remove;
-      }
-    })();
-
     document.getElementById('container').remove();
   });
 });
