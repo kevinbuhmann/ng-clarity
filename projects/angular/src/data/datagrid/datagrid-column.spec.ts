@@ -249,7 +249,7 @@ export default function (): void {
 
       it('accepts a custom filter in the projected content', function () {
         this.context = this.create(ClrDatagridColumn, FilterTest, DATAGRID_SPEC_PROVIDERS);
-        expect(TestBed.get(FiltersProvider).getActiveFilters()).toEqual([this.context.testComponent.filter]);
+        expect(TestBed.inject(FiltersProvider).getActiveFilters()).toEqual([this.context.testComponent.filter]);
       });
 
       it('accepts a custom string filter in the projected content', function () {
@@ -258,7 +258,7 @@ export default function (): void {
         // We make the filter active to see if the FiltersProvider provider knows about it
         this.stringFilter.value = 'hello';
         this.context.detectChanges();
-        expect(TestBed.get(FiltersProvider).getActiveFilters()).toEqual([this.stringFilter]);
+        expect(TestBed.inject(FiltersProvider).getActiveFilters()).toEqual([this.stringFilter]);
       });
 
       it('prioritizes custom comparators over the default property name one', function () {
@@ -276,7 +276,7 @@ export default function (): void {
         this.context.testComponent.field = 'test';
         this.context.detectChanges();
         expect(this.context.clarityElement.querySelectorAll('clr-dg-filter').length).toBe(1);
-        expect(TestBed.get(FiltersProvider).getActiveFilters()).toEqual([this.context.testComponent.filter]);
+        expect(TestBed.inject(FiltersProvider).getActiveFilters()).toEqual([this.context.testComponent.filter]);
       });
 
       it('prioritizes custom string filters over the default property name one', function () {
@@ -288,7 +288,7 @@ export default function (): void {
         this.stringFilter.value = 'hello';
         this.context.detectChanges();
         expect(this.context.clarityElement.querySelectorAll('clr-dg-filter').length).toBe(1);
-        expect(TestBed.get(FiltersProvider).getActiveFilters()).toEqual([this.stringFilter]);
+        expect(TestBed.inject(FiltersProvider).getActiveFilters()).toEqual([this.stringFilter]);
       });
     });
 

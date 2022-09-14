@@ -33,7 +33,7 @@ export default function (): void {
         this.fixture = TestBed.createComponent(IfDraggedTest);
         this.fixture.detectChanges();
 
-        this.dragEventListener = TestBed.get(DragEventListenerService);
+        this.dragEventListener = TestBed.inject(DragEventListenerService);
         this.testElement = this.fixture.nativeElement;
       });
 

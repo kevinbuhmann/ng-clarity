@@ -30,7 +30,7 @@ export default function (): void {
       fixture = TestBed.createComponent(TestTrigger);
       fixture.detectChanges();
       clarityElement = fixture.nativeElement;
-      toggleService = TestBed.get(ClrPopoverToggleService);
+      toggleService = TestBed.inject(ClrPopoverToggleService);
       trigger = clarityElement.querySelector('.signpost-action');
     });
 

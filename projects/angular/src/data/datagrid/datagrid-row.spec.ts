@@ -94,8 +94,8 @@ export default function (): void {
 
       beforeEach(function () {
         context = this.create(ClrDatagridRow, SelectableRow, DATAGRID_SPEC_PROVIDERS);
-        selectionProvider = TestBed.get(Selection);
-        TestBed.get(Items).all = [{ id: 1 }, { id: 2 }];
+        selectionProvider = TestBed.inject(Selection);
+        TestBed.inject(Items).all = [{ id: 1 }, { id: 2 }];
       });
 
       it('should toggle when clrDgSelectable is false for type  SelectionType.Multi', () => {
@@ -129,8 +129,8 @@ export default function (): void {
 
       beforeEach(function () {
         context = this.create(ClrDatagridRow, SelectableRowOrder, DATAGRID_SPEC_PROVIDERS);
-        selectionProvider = TestBed.get(Selection);
-        TestBed.get(Items).all = [{ id: 1 }, { id: 2 }];
+        selectionProvider = TestBed.inject(Selection);
+        TestBed.inject(Items).all = [{ id: 1 }, { id: 2 }];
       });
 
       it('should provide a selection input aria-labels', fakeAsync(function () {
@@ -176,8 +176,8 @@ export default function (): void {
 
       beforeEach(function () {
         context = this.create(ClrDatagridRow, FullTest, DATAGRID_SPEC_PROVIDERS);
-        selectionProvider = TestBed.get(Selection);
-        TestBed.get(Items).all = [{ id: 1 }, { id: 2 }];
+        selectionProvider = TestBed.inject(Selection);
+        TestBed.inject(Items).all = [{ id: 1 }, { id: 2 }];
       });
 
       it("doesn't display a checkbox unless selection type is multi", function () {

@@ -35,7 +35,7 @@ export default function (): void {
         this.testComponent = this.fixture.componentInstance;
         this.fixture.detectChanges();
 
-        this.dragHandleRegistrar = TestBed.get(DragHandleRegistrarService);
+        this.dragHandleRegistrar = TestBed.inject(DragHandleRegistrarService);
         this.testElement = this.fixture.nativeElement;
       });
 

@@ -20,7 +20,7 @@ describe('Loading directive', function () {
     this.fixture.detectChanges();
     this.testComponent = this.fixture.componentInstance;
     this.clarityDirective = this.fixture.componentInstance.loadingDirective;
-    this.listener = TestBed.get(LoadingListener);
+    this.listener = TestBed.inject(LoadingListener);
   });
 
   it('notifies the listener when the [clrLoading] input changes', function () {

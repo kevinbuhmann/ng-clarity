@@ -20,7 +20,7 @@ export default function (): void {
         declarations: [ClrVerticalNavIcon, TestComponent],
         providers: [VerticalNavIconService],
       });
-      verticalNavIconService = TestBed.get(VerticalNavIconService);
+      verticalNavIconService = TestBed.inject(VerticalNavIconService);
       fixture = TestBed.createComponent(TestComponent);
       fixture.detectChanges();
     });

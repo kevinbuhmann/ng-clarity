@@ -63,7 +63,7 @@ export default function (): void {
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.clarityDirective = this.fixture.componentInstance.datagridItems;
-        this.itemsProvider = TestBed.get(Items);
+        this.itemsProvider = TestBed.inject(Items);
       });
 
       it('makes the Items provider smart', function () {
@@ -111,7 +111,7 @@ export default function (): void {
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.clarityDirective = this.fixture.componentInstance.datagridItems;
-        this.itemsProvider = TestBed.get(Items);
+        this.itemsProvider = TestBed.inject(Items);
       });
 
       it('keeps the Items provider up to date with array changes', function () {

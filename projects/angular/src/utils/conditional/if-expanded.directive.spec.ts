@@ -28,7 +28,7 @@ export default function (): void {
         this.testComponent = this.fixture.componentInstance;
         this.testElement = this.fixture.nativeElement;
         this.clarityDirective = this.fixture.componentInstance.ifExpanded;
-        this.expand = TestBed.get(IfExpandService);
+        this.expand = TestBed.inject(IfExpandService);
       });
 
       it("doesn't display anything by default", function () {
@@ -76,7 +76,7 @@ export default function (): void {
         this.fixture = TestBed.createComponent(NgIfTest);
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
-        this.expand = TestBed.get(IfExpandService);
+        this.expand = TestBed.inject(IfExpandService);
       });
 
       it('sets the parent as expandable', function () {

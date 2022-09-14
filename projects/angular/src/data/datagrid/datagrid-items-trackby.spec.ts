@@ -30,7 +30,7 @@ export default function (): void {
       this.fixture = TestBed.createComponent(FullTest);
       this.fixture.detectChanges();
       this.testComponent = this.fixture.componentInstance;
-      this.itemsProvider = TestBed.get(Items);
+      this.itemsProvider = TestBed.inject(Items);
     });
 
     it('receives an input for the trackBy option', function () {

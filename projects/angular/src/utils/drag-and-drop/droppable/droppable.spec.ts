@@ -54,7 +54,7 @@ export default function (): void {
       this.testComponent = this.fixture.componentInstance;
       this.testElement = this.fixture.nativeElement;
       this.droppable = this.fixture.debugElement.query(By.directive(ClrDroppable));
-      this.eventBus = TestBed.get(DragAndDropEventBusService);
+      this.eventBus = TestBed.inject(DragAndDropEventBusService);
       this.fixture.detectChanges();
     });
 
@@ -216,7 +216,7 @@ export default function (): void {
       this.testComponent = this.fixture.componentInstance;
       this.testElement = this.fixture.nativeElement;
       this.droppable = this.fixture.debugElement.query(By.directive(ClrDroppable));
-      this.eventBus = TestBed.get(DragAndDropEventBusService);
+      this.eventBus = TestBed.inject(DragAndDropEventBusService);
       this.fixture.detectChanges();
     });
 
@@ -297,7 +297,7 @@ export default function (): void {
       this.testComponent = this.fixture.componentInstance;
       this.testElement = this.fixture.nativeElement;
       this.droppable = this.fixture.debugElement.query(By.directive(ClrDroppable));
-      this.eventBus = TestBed.get(DragAndDropEventBusService);
+      this.eventBus = TestBed.inject(DragAndDropEventBusService);
       this.fixture.detectChanges();
 
       this.broadcastEnterLeaveEventAt = function (_pageX: number, _pageY: number) {

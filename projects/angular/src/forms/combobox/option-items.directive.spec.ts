@@ -108,7 +108,7 @@ export default function (): void {
 
       it('can filter out items based on the option service currentInput field', function () {
         expect(this.clarityDirective.iterableProxy._ngForOf).toEqual([0, 1, 2, 3]);
-        const optionService: OptionSelectionService<any> = TestBed.get(OptionSelectionService);
+        const optionService: OptionSelectionService<any> = TestBed.inject(OptionSelectionService);
         this.testComponent.numbers.push(12);
         optionService.currentInput = '1';
         this.fixture.detectChanges();
@@ -116,7 +116,7 @@ export default function (): void {
       });
 
       it('has case insensive filter', function () {
-        const optionService: OptionSelectionService<any> = TestBed.get(OptionSelectionService);
+        const optionService: OptionSelectionService<any> = TestBed.inject(OptionSelectionService);
         this.testComponent.numbers.push('Room', 'Broom');
         optionService.currentInput = 'ro';
         this.fixture.detectChanges();
@@ -182,7 +182,7 @@ export default function (): void {
       });
 
       it('sets display field', function () {
-        const optionService: OptionSelectionService<any> = TestBed.get(OptionSelectionService);
+        const optionService: OptionSelectionService<any> = TestBed.inject(OptionSelectionService);
         expect(this.clarityDirective._filterField).toEqual('a');
         expect(optionService.displayField).toEqual('a');
       });

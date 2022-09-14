@@ -38,7 +38,7 @@ export default function (): void {
         itemsInstance = new Items(filtersInstance, sortInstance, pageInstance);
         itemsInstance.smartenUp();
         itemsInstance.all = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
       });
 
@@ -391,7 +391,7 @@ export default function (): void {
         itemsInstance = new Items(filtersInstance, sortInstance, pageInstance);
         itemsInstance.smartenUp();
         itemsInstance.all = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
         selectionInstance.preserveSelection = true;
       });
@@ -486,7 +486,7 @@ export default function (): void {
         itemsInstance.smartenUp();
         itemsInstance.all = items;
         pageInstance.size = 3;
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
       });
 
@@ -535,7 +535,7 @@ export default function (): void {
 
         beforeEach(function () {
           selectionInstance.selectionType = SelectionType.Single;
-          ngZone = TestBed.get(NgZone);
+          ngZone = TestBed.inject(NgZone);
         });
 
         it('should preserve selection on page change', function () {
@@ -627,7 +627,7 @@ export default function (): void {
         filtersInstance = new FiltersProvider(pageInstance, stateDebouncer);
         sortInstance = new Sort(stateDebouncer);
         itemsInstance = new Items(filtersInstance, sortInstance, pageInstance);
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
 
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
       });
@@ -754,7 +754,7 @@ export default function (): void {
         itemsInstance = new Items(filtersInstance, sortInstance, pageInstance);
         itemsInstance.smartenUp();
         itemsInstance.all = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
       });
 
@@ -783,7 +783,7 @@ export default function (): void {
 
       it('should not execute canItBeLocked block when there are no items to scan inside lockItem and isLocked method', function () {
         itemsInstance.all = undefined;
-        const ngZone = TestBed.get(NgZone);
+        const ngZone = TestBed.inject(NgZone);
         selectionInstance = new Selection(itemsInstance, filtersInstance, ngZone);
         selectionInstance.selectionType = SelectionType.Multi;
 

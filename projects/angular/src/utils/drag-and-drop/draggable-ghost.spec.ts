@@ -45,7 +45,7 @@ export default function (): void {
         this.testComponent = this.fixture.componentInstance;
         this.draggableGhostDebugElement = this.fixture.debugElement.query(By.directive(ClrDraggableGhost));
         this.ghostElement = this.draggableGhostDebugElement.nativeElement;
-        this.dragEventListener = TestBed.get(DragEventListenerService);
+        this.dragEventListener = TestBed.inject(DragEventListenerService);
       });
 
       it('should have draggable-ghost class', function () {
@@ -97,7 +97,7 @@ export default function (): void {
           providers: [MOCK_DRAG_EVENT_LISTENER_PROVIDER, DomAdapter, DraggableSnapshotService],
         });
 
-        this.draggableSnapshot = TestBed.get(DraggableSnapshotService);
+        this.draggableSnapshot = TestBed.inject(DraggableSnapshotService);
         this.draggableSnapshot.capture(mockDraggable, mockDragStartEvent);
 
         this.fixture = TestBed.createComponent(WithWrappingDraggable);
@@ -105,7 +105,7 @@ export default function (): void {
 
         this.draggableGhostDebugElement = this.fixture.debugElement.query(By.directive(ClrDraggableGhost));
         this.ghostElement = this.draggableGhostDebugElement.nativeElement;
-        this.dragEventListener = TestBed.get(DragEventListenerService);
+        this.dragEventListener = TestBed.inject(DragEventListenerService);
       });
 
       it('should appear on the first drag move event', function () {
