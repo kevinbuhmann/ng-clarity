@@ -15,10 +15,10 @@ export default function (): void {
     describe('Typescript API', function () {
       beforeEach(function () {
         TestBed.configureTestingModule({
-          declarations: [ClrIfActive, IfOpenTest],
+          declarations: [ClrIfActive, IfActiveTest],
           providers: [IfActiveService, IF_ACTIVE_ID_PROVIDER],
         });
-        this.fixture = TestBed.createComponent(IfOpenTest);
+        this.fixture = TestBed.createComponent(IfActiveTest);
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.testElement = this.fixture.nativeElement;
@@ -88,10 +88,10 @@ export default function (): void {
     describe('View', function () {
       beforeEach(function () {
         TestBed.configureTestingModule({
-          declarations: [ClrIfActive, IfOpenTest],
+          declarations: [ClrIfActive, IfActiveTest],
           providers: [IfActiveService, IF_ACTIVE_ID_PROVIDER],
         });
-        this.fixture = TestBed.createComponent(IfOpenTest);
+        this.fixture = TestBed.createComponent(IfActiveTest);
         this.fixture.detectChanges();
         this.testComponent = this.fixture.componentInstance;
         this.testElement = this.fixture.nativeElement;
@@ -116,7 +116,7 @@ export default function (): void {
 @Component({
   template: `<ng-template [(clrIfActive)]="activeState">Hello Template!</ng-template>`,
 })
-class IfOpenTest {
+class IfActiveTest {
   @ViewChild(ClrIfActive) directive: ClrIfActive;
   activeState = false;
 }
