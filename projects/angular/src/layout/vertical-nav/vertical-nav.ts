@@ -4,7 +4,7 @@
  * The full license information can be found in LICENSE in the root directory of this project.
  */
 
-import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { ClrCommonStringsService } from '../../utils/i18n/common-strings.service';
@@ -31,6 +31,7 @@ export class ClrVerticalNav implements OnDestroy {
   @Input('clrVerticalNavCollapsible')
   set collapsible(value: boolean | string) {
     this._navService.collapsible = value as boolean;
+    this.setContentAreaAriaHidden();
   }
 
   get collapsed(): boolean | string {
@@ -41,6 +42,8 @@ export class ClrVerticalNav implements OnDestroy {
   set collapsed(value: boolean | string) {
     this._navService.collapsed = value as boolean;
   }
+
+  @Input('clrContentAreaElement') contentAreaElement: HTMLElement;
 
   @Output('clrVerticalNavCollapsedChange')
   private _collapsedChanged: EventEmitter<boolean> = new EventEmitter<boolean>(true);
@@ -63,6 +66,7 @@ export class ClrVerticalNav implements OnDestroy {
   private _sub: Subscription;
 
   constructor(
+    private _elementRef: ElementRef<HTMLElement>,
     private _navService: VerticalNavService,
     private _navIconService: VerticalNavIconService,
     private _navGroupRegistrationService: VerticalNavGroupRegistrationService,
@@ -70,6 +74,7 @@ export class ClrVerticalNav implements OnDestroy {
   ) {
     this._sub = this._navService.collapsedChanged.subscribe(value => {
       this._collapsedChanged.emit(value);
+      this.setContentAreaAriaHidden();
     });
   }
 
@@ -79,5 +84,21 @@ export class ClrVerticalNav implements OnDestroy {
 
   ngOnDestroy() {
     this._sub.unsubscribe();
+  }
+
+  private setContentAreaAriaHidden() {
+    if (this.contentAreaElement === undefined) {
+      const parentElement = this._elementRef.nativeElement.parentElement;
+
+      this.contentAreaElement = parentElement.querySelector('clr-vertical-nav + .content-area');
+    }
+
+    if (this.contentAreaElement) {
+      if (this.collapsible) {
+        this.contentAreaElement.setAttribute('aria-hidden', this.collapsed ? 'false' : 'true');
+      } else {
+        this.contentAreaElement.removeAttribute('aria-hidden');
+      }
+    }
   }
 }
